@@ -1,7 +1,7 @@
 import React from 'react'
 
 import axios from 'axios';
-const fetcher = (params) => {
+export const fetcher = (params) => {
   const options = {
     method: 'GET',
     url: `${process.env.REACT_APP_BASE_URL}${params}`,
@@ -23,5 +23,3 @@ const fetcher = (params) => {
   }
 
 }
-
-export default fetcher
