@@ -1,25 +1,22 @@
-import React from 'react'
+import axios from "axios";
 
-import axios from 'axios';
-export const fetcher = (params) => {
+export const fetcher = async (params) => {
   const options = {
-    method: 'GET',
+    method: "GET",
     url: `${process.env.REACT_APP_BASE_URL}${params}`,
     headers: {
-      'X-RapidAPI-Key': `${process.env.REACT_APP_API_KEY}`,
-      'X-RapidAPI-Host': `${process.env.REACT_APP_API_HOST}`
-    }
+      "X-RapidAPI-Key": `${process.env.REACT_APP_API_KEY}`,
+      "X-RapidAPI-Host": `${process.env.REACT_APP_API_HOST}`,
+    },
   };
 
   try {
-    const response = await axios.request(options);
-    if (response.ok) {
-      return response
-    } else {
-      return null
-    }
+    console.log("Making API request to:", options.url);
+    const { data } = await axios(options);
+    // console.log("API response:", data);
+    return data;
   } catch (error) {
-    throw new Error("Something is wrong!!!!")
+    console.error("Error fetching data:", error.message);
+    throw error;
   }
-
-}
+};
