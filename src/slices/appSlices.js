@@ -44,7 +44,6 @@ export const logInAction2 = (payload) => async (dispatch) => {
 
 export const logInAction3 = (payload) => async (dispatch) => {
 	const response = await fetcher(payload);
-	console.log(response)
 	dispatch(getMovieData(response.results));
 };
 

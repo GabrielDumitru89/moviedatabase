@@ -3,8 +3,9 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logInAction2 } from "../slices/appSlices";
 import NavBar from "./NavBar";
-import Layout from "./Layout";
-
+import Layout from "./Movies";
+import MovieCard from "./MovieCard";
+import Template from "./utilsView/Template";
 const Search = () => {
 	const { name } = useParams();
 	const dispatch = useDispatch();
@@ -20,13 +21,13 @@ const Search = () => {
 	return (
 		<div>
 			<NavBar />
-			{dataSearch?.map((item) => {
-				console.log(item);
-				return (
-					<Layout key={item} item={item} />
-					// <div key={item.id}>{item.titleText.text}</div>
-				);
-			})}
+			<Template >
+				{dataSearch?.map((item, index) => {
+					return (
+						<MovieCard key={index} item={item} />
+					);
+				})}
+			</Template>
 		</div>
 	);
 };

@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import NavBar from "./NavBar";
 import MovieCard from "./MovieCard";
-import Layout from "./Layout";
+import Movies from "./Movies";
 
 const Home = () => {
 	return (
 		<div>
 			<NavBar />
-			<Layout />
+			<Movies />
 		</div>
 	);
 };

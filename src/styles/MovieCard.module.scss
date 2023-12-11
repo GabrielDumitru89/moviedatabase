@@ -1,7 +1,7 @@
 @import '_partial.scss';
 
 .card {
-  display : flex;
+  display: flex;
   flex-direction: column;
   border: 1px solid black;
   justify-content: center;
@@ -18,5 +18,4 @@
   p {
     margin-top: 0;
   }
-
 }
