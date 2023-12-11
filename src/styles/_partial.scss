@@ -1,0 +1,17 @@
+.textFancy {
+  color: yellow;
+
+  &:hover {
+    color: purple;
+    cursor: pointer;
+  }
+}
+@mixin defaultFont($size, $weight) {
+  color: #d3d3d3;
+  font-size: $size;
+  font-weight: $weight;
+  &:hover {
+    color: #d9d9d9;
+    cursor: pointer;
+  }
+}

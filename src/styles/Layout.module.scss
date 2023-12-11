@@ -1,0 +1,9 @@
+@import '_partial.scss';
+
+.layout {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  min-height: 100vh;
+  gap: 16px;
+}

@@ -8,6 +8,9 @@ const initialState = {
 	searchedData: {
 		data: null,
 	},
+	movieData: {
+		data: null,
+	},
 };
 
 export const appSlice = createSlice({
@@ -15,25 +18,34 @@ export const appSlice = createSlice({
 	initialState,
 	reducers: {
 		getAppData: (state, action) => {
-			console.log(action.payload);
+			// console.log(action.payload);
 			state.appData.data = action.payload;
 		},
 		getSearchData: (state, action) => {
 			state.searchedData.data = action.payload;
 		},
+		getMovieData: (state, action) => {
+			state.movieData.data = action.payload;
+		},
 	},
 });
 
-export const { getAppData, getSearchData } = appSlice.actions;
+export const { getAppData, getSearchData, getMovieData } = appSlice.actions;
 
 export const logInAction = (payload) => async (dispatch) => {
 	const response = await fetcher(payload);
-	await dispatch(getAppData(response.results));
+	dispatch(getAppData(response.results));
 };
 
 export const logInAction2 = (payload) => async (dispatch) => {
 	const response = await fetcher(payload);
-	await dispatch(getSearchData(response.results));
+	dispatch(getSearchData(response.results));
+};
+
+export const logInAction3 = (payload) => async (dispatch) => {
+	const response = await fetcher(payload);
+	console.log(response)
+	dispatch(getMovieData(response.results));
 };
 
 export default appSlice.reducer;

@@ -11,7 +11,7 @@ export const fetcher = async (params) => {
   };
 
   try {
-    console.log("Making API request to:", options.url);
+    // console.log("Making API request to:", options.url);
     const { data } = await axios(options);
     // console.log("API response:", data);
     return data;

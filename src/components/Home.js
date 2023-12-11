@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react'
-import NavBar from './NavBar'
-
-
+import React, { useEffect } from "react";
+import NavBar from "./NavBar";
+import MovieCard from "./MovieCard";
+import Layout from "./Layout";
 
 const Home = () => {
- 
+	return (
+		<div>
+			<NavBar />
+			<Layout />
+		</div>
+	);
+};
 
-  
-  return (
-    <div><NavBar /></div>
-  )
-}
-
-export default Home
+export default Home;
