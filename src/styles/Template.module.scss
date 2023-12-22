@@ -2,9 +2,14 @@
 
 .templates {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  min-height: 100vh;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
   gap: 16px;
   align-items: center;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
 }

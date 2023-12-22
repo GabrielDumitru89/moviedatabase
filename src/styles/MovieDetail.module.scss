@@ -1,0 +1,62 @@
+.detail {
+  display: flex;
+}
+
+.image{
+  img{
+    width: 450px;
+    height: auto;
+    object-fit: cover;
+  }
+}
+.cast{
+  display: flex;
+  img {
+    width: 100px;
+    height: 120px;
+    object-fit: cover;
+  }
+}
+
+.actors{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 20px;
+    p {
+      display: flex;
+      justify-content: center;
+    }
+} 
+.text {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 0 20px;
+  h1 {
+    font-size: 32px;
+    font-weight: 700;
+    
+  }
+  p {
+    font-size: 16px;
+    font-weight: 500;
+    
+  }
+  span {
+    font-size: 16px;
+    font-weight: 500;
+    
+  }
+}
+
+.trailer {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  iframe {
+    width: 800px;
+    height: 450px;
+  }
+}

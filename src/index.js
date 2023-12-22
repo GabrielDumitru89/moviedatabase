@@ -16,7 +16,7 @@ root.render(
 		<BrowserRouter>
 			<App />
 			<Toast />
-			<ModalComponent />
+			{/* <ModalComponent /> */}
 		</BrowserRouter>
 	</Provider>
 );

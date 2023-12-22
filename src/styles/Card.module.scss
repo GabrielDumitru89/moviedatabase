@@ -1,0 +1,41 @@
+@import '_partial.scss';
+
+.card {
+  gap: 16px;
+  position: relative;
+  width: 200px;
+  height: 425px;
+  display: flex;
+  flex-direction: column;
+  // border: 1px solid black;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  h3 {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    padding: 10px;
+    margin-top: 260px;
+    margin-bottom: 0;
+    overflow: hidden;
+    align-items: center;
+  }
+
+  p {
+    margin-top: 0;
+  }
+
+  cursor: pointer;
+}
+

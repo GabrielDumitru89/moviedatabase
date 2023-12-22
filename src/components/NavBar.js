@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import styles from "../styles/NavBar.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { logInAction } from "../slices/appSlices";
+import { navData } from "../slices/appSlices";
 import { useNavigate } from "react-router-dom";
-import Home from "./Home";
 
 const NavBar = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(logInAction("/titles/utils/titleTypes"));
+		dispatch(navData("/titles/utils/lists"));
 	}, [dispatch]);
 
 	const dataNav = useSelector((state) => state.app.appData.data);
@@ -32,21 +31,56 @@ const NavBar = () => {
 	};
 
 	return (
-		
 		<div className={styles.navbar}>
-			<div onClick={() => {navigate("/")}}>Home</div>
-			{dataNav?.map((item, index) => (
-				<div key={index}>{item}</div>
-			))}
-			<div>
-				<input
-					type="input"
-					value={input}
-					onChange={handleChange}
-					onKeyDown={handleKeyPress}
+			<div className={styles.links}>
+				{/* <div onClick={() => {navigate("/")}}>Home</div> */}
+				<img
+					onClick={() => {
+						navigate("/");
+					}}
+					src="/images/tmdb.svg"
+					alt="Home"
 				/>
+				{/* {dataNav?.map((item, index) => (
+				<div
+					onClick={() => {
+						navigate(`/lists/${item}`);
+					}}
+					key={index}
+				>
+					{item}
+				</div>
+			))} */}
+				<div
+					onClick={() => {
+						navigate(`/titles?list=most_pop_series&info=custom_info`);
+					}}
+				>
+					Movies
+				</div>
+				<div
+					onClick={() => {
+						navigate(`/titles?list=most_pop_series&info=custom_info`);
+					}}
+				>
+					Series
+				</div>
 			</div>
-			<button onClick={handleClick}>Search</button>
+
+			<div className={styles.search}>
+				<div>
+					<input
+						type="input"
+						name="search"
+						value={input}
+						onChange={handleChange}
+						onKeyDown={handleKeyPress}
+					/>
+				</div>
+				<div>
+					<button onClick={handleClick}>Search</button>
+				</div>
+			</div>
 		</div>
 	);
 };

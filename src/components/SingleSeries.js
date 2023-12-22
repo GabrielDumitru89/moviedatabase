@@ -5,18 +5,17 @@ import { useParams } from "react-router-dom";
 import Template from "./utilsView/Template";
 import MovieDetail from "./MovieDetail";
 
-const Movie = () => {
-	const { id } = useParams();
+const SingleSeries = () => {
+  const { id } = useParams();
 	const condition = null;
-	const movies = useSelector((state) => condition ? state.app.movieData.data : state.app.topRatedM.data);
-	// console.log(movies);
-	const dataSingleMovie = movies.filter((item, index) => item.id === id);
-
+	const singleSeries = useSelector((state) => condition ? state.app.seriesData.data : state.app.topRatedS.data);
+	// console.log(singleSeries);
+	const dataSingleSeries = singleSeries.filter((item, index) => item.id === id);
 	return (
 		<div>
-			<NavBar />
+			{/* <NavBar /> */}
 			<Template>
-				{dataSingleMovie?.map((item, index) => (
+				{dataSingleSeries?.map((item, index) => (
 					<MovieDetail key={index} item={item} />
 				))}
 			</Template>
@@ -24,4 +23,4 @@ const Movie = () => {
 	);
 };
 
-export default Movie;
+export default SingleSeries

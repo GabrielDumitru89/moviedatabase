@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logInAction2 } from "../slices/appSlices";
+import { searchData } from "../slices/appSlices";
 import NavBar from "./NavBar";
-import Layout from "./Movies";
-import MovieCard from "./MovieCard";
+import SearchCard from "./SearchCard";
 import Template from "./utilsView/Template";
 const Search = () => {
 	const { name } = useParams();
@@ -12,7 +11,7 @@ const Search = () => {
 
 	useEffect(() => {
 		if (name) {
-			dispatch(logInAction2(`/titles/search/keyword/${name}`));
+			dispatch(searchData(`/titles/search/title/${name}`));
 		}
 	}, [dispatch, name]);
 
@@ -23,9 +22,7 @@ const Search = () => {
 			<NavBar />
 			<Template >
 				{dataSearch?.map((item, index) => {
-					return (
-						<MovieCard key={index} item={item} />
-					);
+					return <SearchCard key={index} item={item} />;
 				})}
 			</Template>
 		</div>
