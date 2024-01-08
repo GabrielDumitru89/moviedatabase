@@ -21,9 +21,10 @@ const Movie = () => {
 	// const movieCreditsData = useSelector(
 	// 	(state) => state.app.movieCreditsData
 	// );
-	const movieCreditsData = useSelector((state) => state.app.movieCreditsData.cast);
+	const movieCreditsData = useSelector(
+		(state) => state.app.movieCreditsData.cast
+	);
 	// console.log(movieCreditsData);
-	
 
 	const movies = [
 		...(Array.isArray(movieData) ? movieData : []),

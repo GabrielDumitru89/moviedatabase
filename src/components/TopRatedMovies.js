@@ -11,11 +11,7 @@ const TopRatedMovies = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(
-			topRatedMovies(
-				"/movie/top_rated?language=en-US&page=1"
-			)
-		);
+		dispatch(topRatedMovies("/movie/top_rated?language=en-US&page=1"));
 	}, [dispatch]);
 
 	const moviesData = useSelector((state) => state.app.topRatedM.data);

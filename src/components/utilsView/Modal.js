@@ -26,6 +26,7 @@ const customStyles = {
 		backgroundColor: "rgba(0, 0, 0, 0.75)",
 	},
 };
+
 const ModalComponent = ({video, isOpen, closeModal}) => {
 	let subtitle;
 	const [modalIsOpen, setIsOpen] = React.useState(false);

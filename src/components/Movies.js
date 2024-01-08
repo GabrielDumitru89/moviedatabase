@@ -11,11 +11,7 @@ const Movies = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(
-			logInAction3(
-				"/movie/popular?language=en-US&page=1"
-			)
-		);
+		dispatch(logInAction3("/movie/popular?language=en-US&page=1"));
 	}, [dispatch]);
 
 	const moviesData = useSelector((state) => state.app.movieData.data);

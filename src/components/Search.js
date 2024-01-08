@@ -12,7 +12,10 @@ const Search = () => {
 	useEffect(() => {
 		if (name) {
 			dispatch(
-				searchData(`/search/multi?query=${name}&include_adult=false&language=en-US&page=1}`));
+				searchData(
+					`/search/multi?query=${name}&include_adult=false&language=en-US&page=1}`
+				)
+			);
 		}
 	}, [dispatch, name]);
 

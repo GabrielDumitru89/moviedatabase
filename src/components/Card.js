@@ -19,14 +19,14 @@ const Card = ({ item }) => {
 		>
 			<div className={styles.img}>
 				{item?.poster_path ? (
-						<img
-							src={`https://image.tmdb.org/t/p/w500${
-								item?.poster_path ? item.poster_path : item?.backdrop_path
-							}`}
-							alt={item?.title}
-						/>
+					<img
+						src={`https://image.tmdb.org/t/p/w500${
+							item?.poster_path ? item.poster_path : item?.backdrop_path
+						}`}
+						alt={item?.title}
+					/>
 				) : (
-						<img src="/images/image-not-found.png" alt="" />
+					<img src="/images/image-not-found.png" alt="" />
 				)}
 			</div>
 			<div className={styles.title}>

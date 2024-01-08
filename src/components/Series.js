@@ -11,11 +11,7 @@ const Series = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(
-			logInAction4(
-				"/tv/popular?language=en-US&page=1"
-			)
-		);
+		dispatch(logInAction4("/tv/popular?language=en-US&page=1"));
 	}, [dispatch]);
 
 	const tvSeriesData = useSelector((state) => state.app.seriesData.data);

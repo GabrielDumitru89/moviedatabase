@@ -23,7 +23,9 @@ const SingleSeries = () => {
 	const searchData = useSelector((state) => state.app.searchedData.data);
 	const topRatedS = useSelector((state) => state.app.topRatedS.data);
 	const bannerData = useSelector((state) => state.app.bannerData.data);
-	const tvCreditsData = useSelector((state) => state.app.tvCreditsData.data.cast);
+	const tvCreditsData = useSelector(
+		(state) => state.app.tvCreditsData.data.cast
+	);
 
 	const singleSeries = [
 		...(Array.isArray(series) ? series : []),
@@ -44,9 +46,7 @@ const SingleSeries = () => {
 		<div>
 			<NavBar />
 			<Template>
-				{dataSingleSeries && 
-					<SeriesDetail item={dataSingleSeries} />
-				}
+				{dataSingleSeries && <SeriesDetail item={dataSingleSeries} />}
 			</Template>
 		</div>
 	);

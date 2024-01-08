@@ -9,7 +9,6 @@ import "swiper/swiper-bundle.css";
 import ModalComponent from "../components/utilsView/Modal";
 
 const MovieDetail = ({ item }) => {
-	
 	const [modalIsOpen, setIsOpen] = useState(false);
 	function openModal() {
 		console.log("Opening modal");
@@ -131,19 +130,23 @@ const MovieDetail = ({ item }) => {
 						Watch Trailer
 					</button> */}
 					<button
-        className={styles.trailerButton}
-        onClick={() => {
-          const trailer = videos.find((video) => video.type === "Trailer");
-          if (trailer) {
-            setModalVideo(trailer);
-            openModal();
-          }
-        }}
-      >
-        Watch Trailer
-      </button>
+						className={styles.trailerButton}
+						onClick={() => {
+							const trailer = videos.find((video) => video.type === "Trailer");
+							if (trailer) {
+								setModalVideo(trailer);
+								openModal();
+							}
+						}}
+					>
+						Watch Trailer
+					</button>
 
-      <ModalComponent video={modalVideo} isOpen={modalIsOpen} closeModal={closeModal} />
+					<ModalComponent
+						video={modalVideo}
+						isOpen={modalIsOpen}
+						closeModal={closeModal}
+					/>
 					<p>{movieDetails?.tagline}</p>
 					<p>
 						<strong>Overview:</strong> {item?.overview}
