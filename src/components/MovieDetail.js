@@ -6,15 +6,27 @@ import { videosData } from "../slices/appSlices";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 import "swiper/swiper-bundle.css";
+import ModalComponent from "../components/utilsView/Modal";
 
-const MovieDetail =({ item }) => {
+const MovieDetail = ({ item }) => {
+	
+	const [modalIsOpen, setIsOpen] = useState(false);
+	function openModal() {
+		console.log("Opening modal");
+		setIsOpen(true);
+	}
+	console.log("Modal is open:", modalIsOpen);
+	function closeModal() {
+		setIsOpen(false);
+	}
+
 	// console.log('Rendering MovieDetail')
 	// console.log('item prop:', item);
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-		// useEffect(() => {
+	// useEffect(() => {
 	// 	dispatch(videosData(`/movie/${item.id}/videos?language=en-US`));
 	// }, [dispatch, item]);
 	// const video = useSelector((state) => state.app?.videosData?.data);
@@ -22,12 +34,13 @@ const MovieDetail =({ item }) => {
 	// console.log(useSelector((state) => state));
 	// console.log(useSelector((state) => state.app.videosData));
 	// // console.log(useSelector((state) => state.app));
-	
+
 	const [movieDetails, setMovieDetails] = useState(null);
 	const [director, setDirector] = useState(null);
 	const [screenplayWriters, setScreenplayWriters] = useState([]);
 	const [novelWriters, setNovelWriters] = useState([]);
 	const [videos, setVideos] = useState([]);
+	const [modalVideo, setModalVideo] = useState(null);
 	const [cast, setCast] = useState([]);
 
 	useEffect(() => {
@@ -117,6 +130,20 @@ const MovieDetail =({ item }) => {
 					>
 						Watch Trailer
 					</button> */}
+					<button
+        className={styles.trailerButton}
+        onClick={() => {
+          const trailer = videos.find((video) => video.type === "Trailer");
+          if (trailer) {
+            setModalVideo(trailer);
+            openModal();
+          }
+        }}
+      >
+        Watch Trailer
+      </button>
+
+      <ModalComponent video={modalVideo} isOpen={modalIsOpen} closeModal={closeModal} />
 					<p>{movieDetails?.tagline}</p>
 					<p>
 						<strong>Overview:</strong> {item?.overview}
