@@ -13,8 +13,7 @@ const TopRatedMovies = () => {
 	useEffect(() => {
 		dispatch(
 			topRatedMovies(
-				// "/titles?titleType=movie&startYear=1950&endYear=2023&limit=10"
-				"/titles?info=custom_info&list=top_rated_english_250&sort=year.decr"
+				"/movie/top_rated?language=en-US&page=1"
 			)
 		);
 	}, [dispatch]);
@@ -32,19 +31,14 @@ const TopRatedMovies = () => {
 				slidesPerView={5}
 				initialSlide={1}
 				navigation
-				pagination={{ clickable: true }}
-				style={{ width: "100%", height: "100%" }}
-				// scrollbar={{ draggable: true }}
+				pagination={{ clickable: true, dynamicBullets: true }}
 				breakpoints={{
-					// Small screens
 					320: {
 						slidesPerView: 1,
 					},
-					// Medium screens
 					768: {
 						slidesPerView: 3,
 					},
-					// Large screens
 					1024: {
 						slidesPerView: 5,
 					},

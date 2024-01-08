@@ -9,7 +9,7 @@ const NavBar = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(navData("/titles/utils/lists"));
+		dispatch(navData("/movie/top_rated?language=en-US"));
 	}, [dispatch]);
 
 	const dataNav = useSelector((state) => state.app.appData.data);
@@ -32,53 +32,56 @@ const NavBar = () => {
 
 	return (
 		<div className={styles.navbar}>
-			<div className={styles.links}>
-				{/* <div onClick={() => {navigate("/")}}>Home</div> */}
-				<img
-					onClick={() => {
-						navigate("/");
-					}}
-					src="/images/tmdb.svg"
-					alt="Home"
-				/>
-				{/* {dataNav?.map((item, index) => (
-				<div
-					onClick={() => {
-						navigate(`/lists/${item}`);
-					}}
-					key={index}
-				>
-					{item}
+			<div className={styles.navItems}>
+				<div className={styles.links}>
+					{/* <div onClick={() => {navigate("/")}}>Home</div> */}
+					<img
+						onClick={() => {
+							navigate("/");
+						}}
+						src="/images/tmdb.svg"
+						alt="Home"
+					/>
+					<div
+						onClick={() => {
+							navigate(`/movie/top_rated?language=en-US&page=1`);
+						}}
+					>
+						Movies
+					</div>
+					<div
+						onClick={() => {
+							navigate(`/movie/top_rated?language=en-US&page=1`);
+						}}
+					>
+						Series
+					</div>
 				</div>
-			))} */}
-				<div
-					onClick={() => {
-						navigate(`/titles?list=most_pop_series&info=custom_info`);
-					}}
-				>
-					Movies
-				</div>
-				<div
-					onClick={() => {
-						navigate(`/titles?list=most_pop_series&info=custom_info`);
-					}}
-				>
-					Series
-				</div>
-			</div>
 
-			<div className={styles.search}>
-				<div>
-					<input
+				<div className={styles.search}>
+					<div>
+						<label htmlFor="search"></label>
+						<input
+							type="input"
+							id="search"
+							name="search"
+							value={input}
+							placeholder="Search"
+							onChange={handleChange}
+							onKeyDown={handleKeyPress}
+						/>
+						{/* <input
 						type="input"
 						name="search"
 						value={input}
+						placeholder="Search"
 						onChange={handleChange}
 						onKeyDown={handleKeyPress}
-					/>
-				</div>
-				<div>
-					<button onClick={handleClick}>Search</button>
+					/> */}
+					</div>
+					<div>
+						<button onClick={handleClick}>Search</button>
+					</div>
 				</div>
 			</div>
 		</div>

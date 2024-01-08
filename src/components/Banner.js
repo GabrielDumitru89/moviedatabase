@@ -1,12 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import styles from "../styles/Banner.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { bannerData } from "../slices/appSlices";
+import { useNavigate } from "react-router-dom";
 
-const Banner = () => {
+const Banner = ({ item }) => {
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		dispatch(bannerData("/movie/upcoming?language=en-US&page=1"));
+	}, [dispatch]);
+
+	const banner1Data = useSelector((state) => state.app.bannerData.data);
+	// console.log(banner1Data);
+
 	return (
 		<div className={styles.Banner}>
-			<div>
+			<div className={styles.bannerWrapper}>
 				<Carousel
 					autoPlay
 					infiniteLoop
@@ -15,15 +28,30 @@ const Banner = () => {
 					showThumbs={false}
 					interval={5000}
 				>
-					<div>
-						<img loading="lazy" src="/images/john-wick-3-parabellum_16.png" alt="banner1" />
-					</div>
-					<div>
-						<img loading="lazy" src="/images/shazam-banner2.png" alt="banner2" />
-					</div>
-					<div>
-						<img loading="lazy" src="/images/the-flash-banner.png" alt="banner3" />
-					</div>
+					{banner1Data?.map((item) => (
+						<div
+							key={item.id}
+							className={styles.carouselWrapper}
+							onClick={() => {
+								// console.log(`Clicked item ID: ${item?.id}`);
+								navigate(`/movie/${item?.id}?language=en-US`);
+							}}
+						>
+							<div className={styles.carouselImage}>
+								<img
+									src={`https://image.tmdb.org/t/p/original/${item?.backdrop_path}`}
+									alt={item?.title}
+								/>
+							</div>
+							<div className={styles.carouselTitle}>
+								<h1>{item?.title}</h1>
+								<p>{item?.overview}</p>
+							</div>
+							{/* <div className={styles.carouselText}> */}
+
+							{/* </div> */}
+						</div>
+					))}
 				</Carousel>
 			</div>
 		</div>

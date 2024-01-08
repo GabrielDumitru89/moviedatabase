@@ -2,12 +2,12 @@ import axios from "axios";
 
 export const fetcher = async (params) => {
   const options = {
-    method: "GET",
+    method: 'GET',
     url: `${process.env.REACT_APP_BASE_URL}${params}`,
     headers: {
-      "X-RapidAPI-Key": `${process.env.REACT_APP_API_KEY}`,
-      "X-RapidAPI-Host": `${process.env.REACT_APP_API_HOST}`,
-    },
+      accept: 'application/json',
+      Authorization: `${process.env.REACT_APP_AUTH_KEY}`
+    }
   };
 
   try {

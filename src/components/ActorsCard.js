@@ -7,26 +7,24 @@ const ActorsCard = ({ item }) => {
 
 	return (
 		<div
-			onClick={() => navigate(`/actors/${item.nconst}`)}
+			onClick={() => navigate(`/person/${item.id}`)}
 			className={styles.actorCard}
 		>
 			<div>
-				<h2>{item?.primaryName}</h2>
+				<img
+					src={
+						item?.profile_path
+							? `https://image.tmdb.org/t/p/w200/${item.profile_path}`
+							: ""
+					}
+					alt={item?.name}
+				/>
 			</div>
 			<div>
-				<img src={item?.primaryImage && item?.primaryImage.url} alt="" />
+				<p>{item?.name}</p>
 			</div>
 			<div>
-				<p>Birth Year: {item?.birthYear}</p>
-			</div>
-			<div>
-				<p>Death Year: {item?.deathYear}</p>
-			</div>
-			<div>
-				<p>Known For: {item?.knownForTitles}</p>
-			</div>
-			<div>
-				<p>Profession: {item?.primaryProfession}</p>
+				<p>Popularity: {item?.popularity}</p>
 			</div>
 		</div>
 	);

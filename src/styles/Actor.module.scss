@@ -1,0 +1,44 @@
+.actorContainer {
+  display: flex;
+  justify-content: flex-start;
+  max-width: 1300px;
+}
+
+.imageContainer {
+  width: 200px;
+  height: 300px;
+  padding: 10px;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.infoContainer {
+  margin-top: 20px;
+  text-align: center;
+  padding: 10px;
+}
+.actorCredits {
+  width: 100%; // make it the full width of its parent
+}
+
+.movieCredits {
+  display: flex; // display children in a row
+  overflow-x: scroll; // enable horizontal scrolling
+  width: 100%; // make it the full width of its parent
+  -webkit-overflow-scrolling: touch; // smooth scrolling on iOS
+  max-width: 1080px;
+}
+.movieCredits::-webkit-scrollbar {
+  display: none;
+}
+.actorBiography{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 20px;
+  padding: 10px;
+}

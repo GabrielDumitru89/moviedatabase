@@ -13,8 +13,7 @@ const Series = () => {
 	useEffect(() => {
 		dispatch(
 			logInAction4(
-				"/titles?titleType=tvSeries&endYear=2023&startYear=1980&sort=year.decr&info=custom_info"
-				// "/titles?list=top_rated_series_250&info=custom_info&sort=year.decr"
+				"/tv/popular?language=en-US&page=1"
 			)
 		);
 	}, [dispatch]);
@@ -27,23 +26,17 @@ const Series = () => {
 			<Swiper
 				modules={[Navigation, Pagination, Scrollbar, A11y]}
 				spaceBetween={0}
-				// centeredSlides={true}
 				slidesPerView={5}
 				initialSlide={1}
 				navigation
-				pagination={{ clickable: true }}
-				style={{ width: "100%", height: "100%" }}
-				// scrollbar={{ draggable: true }}
+				pagination={{ clickable: true, dynamicBullets: true }}
 				breakpoints={{
-					// Small screens
 					320: {
 						slidesPerView: 1,
 					},
-					// Medium screens
 					768: {
 						slidesPerView: 3,
 					},
-					// Large screens
 					1024: {
 						slidesPerView: 5,
 					},

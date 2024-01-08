@@ -4,24 +4,29 @@ import { Routes, Route } from "react-router-dom";
 import Search from "./components/Search";
 import Movie from "./components/Movie";
 import Actor from "./components/Actor";
+import Movies from "./components/Movies";
 import SingleSeries from "./components/SingleSeries";
-import NavBar from "./components/NavBar";
+import SeasonDetail from "./components/SeasonDetail";
+import EpisodeDetail from "./components/EpisodeDetail";
 
 function App() {
 	return (
 		<Routes>
 			<Route path="/" element={<Home />} />
+			<Route path="/titles" element={<Movies />} />
+			<Route path="/movie/:id" element={<Movie />} />
+			<Route path="/tv/:id" element={<SingleSeries />} />
 			<Route
-				path="/titles/:id"
-				element={
-					<>
-						<Movie />
-						<SingleSeries />
-					</>
-				}
+				path="/series/:seriesId/season/:seasonNumber"
+				element={<SeasonDetail />}                                                 
 			/>
+			<Route
+				path="/tv/:seriesId/season/:seasonNumber/episode/:episodeNumber"
+				element={<EpisodeDetail />}
+			/>
+
 			<Route path="/search/:name" element={<Search />} />
-			<Route path="/actors/:id" element={<Actor />} />
+			<Route path="/person/:id" element={<Actor />} />
 		</Routes>
 	);
 }

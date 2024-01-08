@@ -1,46 +1,121 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-// import { useSelector } from "react-redux";
-import styles from "../styles/Card.module.scss";
+import styles from "../styles/SearchCard.module.scss";
 
-const Card = ({ item }) => {
+const SearchCard = ({ item }) => {
 	const navigate = useNavigate();
+	// console.log(item);
+	const handleItemClick = (mediaType, id) => {
+		navigate(`/${mediaType}/${id}`);
+	};
 
-	return (
-		<div
-			onClick={() => navigate(`/titles/${item?.id}/`)}
-			className={styles.card}
-		>
-			{item?.primaryImage?.url ? (
-				<img
-					src={item?.primaryImage?.url}
-					alt={item?.primaryImage?.caption?.plainText}
-				/>
-			) : (
-				<div
-					style={{
-						width: 200,
-						height: "auto",
-						background: "#000",
-						color: "#fff",
-						display: "flex",
-						justifyContent: "center",
-						alignItems: "center",
-						textAlign: "center",
-						fontSize: 24,
-					}}
-				>
-					<img src="/images/image-not-found.png" alt=""/>
-				
+	if (item?.media_type === "movie") {
+		return (
+			<div
+				className={styles.card}
+				onClick={() => handleItemClick(item?.media_type, item?.id)}
+			>
+				<div className={styles.imageContainer}>
+					{item?.poster_path ? (
+						<img
+							src={`https://image.tmdb.org/t/p/w200/${item.poster_path}`}
+							alt={item?.title}
+							className={styles.image}
+						/>
+					) : (
+						<img
+							src="/images/image-not-found.png"
+							alt=""
+							className={styles.image}
+						/>
+					)}
 				</div>
-			)}
-				
-			<h3>{item?.titleText?.text}</h3>
-			{/* <p>{item?.titleType?.text}</p> */}
-			<p>{item?.releaseYear?.year}</p>
-			
-		</div>
-	);
+				<div>
+					<div className={styles.title}>
+						<p>
+							<strong>{item?.title}</strong>
+						</p>
+					</div>
+					<div className={styles.overview}>
+						<p>{item?.overview}</p>
+					</div>
+				</div>
+			</div>
+		);
+	} else if (item?.media_type === "tv") {
+		return (
+			<div
+				className={styles.card}
+				onClick={() => handleItemClick(item?.media_type, item?.id)}
+			>
+				<div className={styles.imageContainer}>
+					{item?.poster_path ? (
+						<img
+							src={`https://image.tmdb.org/t/p/w200/${item.poster_path}`}
+							alt={item?.name}
+							className={styles.image}
+						/>
+					) : (
+						<img
+							src="/images/image-not-found.png"
+							alt=""
+							className={styles.image}
+						/>
+					)}
+				</div>
+				<div>
+					<div className={styles.title}>
+						<p>
+							<strong>{item?.name}</strong>
+						</p>
+					</div>
+					<div className={styles.overview}>
+						<p>{item?.overview}</p>
+					</div>
+				</div>
+			</div>
+		);
+	} else if (item?.media_type === "person") {
+		// Display person item?
+		return (
+			<div
+				className={styles.card}
+				onClick={() => handleItemClick(item?.media_type, item?.id)}
+			>
+				<div className={styles.imageContainer}>
+					{item?.profile_path ? (
+						<img
+							src={`https://image.tmdb.org/t/p/w200/${item.profile_path}`}
+							alt={item?.name}
+							className={styles.image}
+						/>
+					) : (
+						<img
+							src="/images/image-not-found.png"
+							alt=""
+							className={styles.image}
+						/>
+					)}
+				</div>
+				<div>
+					<div className={styles.title}>
+						<p>
+							<strong>{item?.name}</strong>
+						</p>
+					</div>
+					<div className={styles.overview}>
+						<p>
+							{item?.known_for?.map((item, index) => (
+								<p key={index}>{item.title || item.name}</p>
+							))}
+						</p>
+					</div>
+				</div>
+			</div>
+		);
+	} else {
+		return null;
+	}
 };
 
-export default Card;
+export default SearchCard;

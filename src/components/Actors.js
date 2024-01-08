@@ -11,21 +11,21 @@ const Actors = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(logInAction5("/actors"));
+		dispatch(logInAction5("/trending/person/day?language=en-US"));
 	}, [dispatch]);
 
 	const actorsData = useSelector((state) => state.app.actorData.data);
 	// console.log(actorsData);
 	return (
 		<Template>
-			<div>Actors</div>
+			<div>Popular Actors</div>
 			<Swiper
 				modules={[Navigation, Pagination, Scrollbar, A11y]}
 				spaceBetween={0}
 				slidesPerView={5}
 				initialSlide={1}
 				navigation
-				pagination={{ clickable: true }}
+				pagination={{ clickable: true, dynamicBullets: true }}
 				style={{ width: "100%", height: "100%" }}
 				// scrollbar={{ draggable: true }}
 				breakpoints={{

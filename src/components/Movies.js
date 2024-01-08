@@ -13,8 +13,7 @@ const Movies = () => {
 	useEffect(() => {
 		dispatch(
 			logInAction3(
-				// "/titles?titleType=movie&startYear=1950&endYear=2023&limit=10"
-				"/titles?info=custom_info&list=top_boxoffice_last_weekend_10"
+				"/movie/popular?language=en-US&page=1"
 			)
 		);
 	}, [dispatch]);
@@ -32,8 +31,7 @@ const Movies = () => {
 				slidesPerView={5}
 				initialSlide={1}
 				navigation
-				pagination={{ clickable: true }}
-				style={{ width: "100%", height: "100%" }}
+				pagination={{ clickable: true, dynamicBullets: true }}
 				breakpoints={{
 					320: {
 						slidesPerView: 1,

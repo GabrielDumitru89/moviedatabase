@@ -2,25 +2,16 @@
 
 .navbar {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   background-color: rgba(3,37,65,1);
   border: none;
-  padding: 10px;
+  padding: 0px 10px;
   gap: 4px;
   text-transform: capitalize;
   @include defaultFont(14px, 700);
 
   .navbarItem {
-    // font-size: 12px;
-    // padding: 0 5px;
-    // &:hover {
-    //   color: #fff;
-    //   font-size: 14px;
-    //   cursor: pointer;
-    //   text-decoration: underline;
-    // }
-    // @extend .textFancy;
     @include defaultFont(12px, 400);
   }
   img {
@@ -38,9 +29,17 @@
   }
 }
 
+.navItems {
+  width: 1300px;
+  max-width: 1300px;
+  display: flex;
+  justify-content: space-between;
+}
+
 .links{
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
   img {
     margin-right: 20px;
   }
@@ -58,6 +57,10 @@
   padding: 10px;
   gap: 4px;
 
+  input {
+    display: flex;
+    // width: 400px;
+  }
   button {
     background-color: rgba(30,213,169,1);
     border-radius: 18px;

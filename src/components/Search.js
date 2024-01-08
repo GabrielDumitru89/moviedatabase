@@ -11,16 +11,18 @@ const Search = () => {
 
 	useEffect(() => {
 		if (name) {
-			dispatch(searchData(`/titles/search/title/${name}`));
+			dispatch(
+				searchData(`/search/multi?query=${name}&include_adult=false&language=en-US&page=1}`));
 		}
 	}, [dispatch, name]);
 
 	const dataSearch = useSelector((state) => state.app.searchedData.data);
+	// console.log(dataSearch);
 
 	return (
 		<div>
 			<NavBar />
-			<Template >
+			<Template>
 				{dataSearch?.map((item, index) => {
 					return <SearchCard key={index} item={item} />;
 				})}

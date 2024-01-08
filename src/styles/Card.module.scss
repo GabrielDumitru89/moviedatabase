@@ -1,18 +1,14 @@
 @import '_partial.scss';
 
 .card {
-  gap: 16px;
-  position: relative;
   width: 200px;
-  height: 425px;
   display: flex;
   flex-direction: column;
-  // border: 1px solid black;
   justify-content: center;
   align-items: center;
+  margin-left: 5px;
 
   img {
-    position: absolute;
     top: 0;
     left: 0;
     width: 200px;
@@ -21,7 +17,7 @@
     border-radius: 12px;
   }
 
-  h3 {
+  p {
     display: flex;
     text-align: center;
     justify-content: center;
@@ -37,5 +33,18 @@
   }
 
   cursor: pointer;
+}
+.img {
+  display: flex;
+  height: px;
+}
+.title {
+  display: flex;
+  height: 70px;
+}
+
+.year {
+  display: flex;
+  height: 20px
 }
 

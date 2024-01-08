@@ -17,7 +17,7 @@ const Home = () => {
 			<TopRatedMovies />
 			<Series />
 			<TopRatedSeries />
-			{/* <Actors	/> */}
+			<Actors	/>
 			<Footer />
 		</div>
 	);

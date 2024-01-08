@@ -8,29 +8,32 @@ const Card = ({ item }) => {
 
 	return (
 		<div
-			onClick={() => navigate(`/titles/${item?.id}/`)}
+			onClick={() => {
+				if (item.title) {
+					navigate(`/movie/${item.id}?language=en-US`);
+				} else if (item.name) {
+					navigate(`/tv/${item.id}?language=en-US`);
+				}
+			}}
 			className={styles.card}
 		>
-			<div>
-				{item?.primaryImage?.url ? (
-					<div>
+			<div className={styles.img}>
+				{item?.poster_path ? (
 						<img
-							src={item?.primaryImage?.url}
-							alt={item?.primaryImage?.caption?.plainText}
+							src={`https://image.tmdb.org/t/p/w500${
+								item?.poster_path ? item.poster_path : item?.backdrop_path
+							}`}
+							alt={item?.title}
 						/>
-					</div>
 				) : (
-					<div>
 						<img src="/images/image-not-found.png" alt="" />
-					</div>
 				)}
 			</div>
 			<div className={styles.title}>
-				<h3>{item?.titleText?.text}</h3>
+				<p>{item?.title || item?.name}</p>
 			</div>
-			{/* <p>{item?.titleType?.text}</p> */}
 			<div className={styles.year}>
-				<p>{item?.releaseYear?.year}</p>
+				<p>{item?.release_date || item?.first_air_date}</p>
 			</div>
 		</div>
 	);
