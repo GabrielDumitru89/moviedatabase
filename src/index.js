@@ -9,7 +9,7 @@ import Toast from "./components/utilsView/Toast";
 import { Provider } from "react-redux";
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
-import { store} from './store';
+import { store } from './store';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -21,10 +21,10 @@ let persistor = persistStore(store);
 root.render(
 	<Provider store={store}>
 		<BrowserRouter>
-		<PersistGate loading={null} persistor={persistor}>
-			<App />
-			<Toast />
-			<ModalComponent />
+			<PersistGate loading={null} persistor={persistor}>
+				<App />
+				<Toast />
+				<ModalComponent />
 			</PersistGate>
 		</BrowserRouter>
 	</Provider>

@@ -6,15 +6,15 @@ import { videosData } from "../slices/appSlices";
 import { imagesData } from "../slices/appSlices";
 import { openModal } from "../slices/appSlices";
 import { closeModal } from "../slices/appSlices";
-import ModalComponent from "./utilsView/Modal";
 import Row from "./Row";
 
 const MovieDetail = ({ item }) => {
 	function handlerOpenModal(trailer) {
 		dispatch(openModal(trailer));
 	}
-	const modalVideo = useSelector((state) => state.modalVideo);
-	const modalIsOpen = useSelector((state) => state.modalIsOpen);
+	// const modalVideo = useSelector((state) => state.modal.video);
+	// console.log("test", modalVideo)
+	const modalIsOpen = useSelector((state) => state.app.modal.isOpen);
 
 	const handleCloseModal = () => {
 		dispatch(closeModal());
@@ -115,7 +115,7 @@ const MovieDetail = ({ item }) => {
 					<button
 						className={styles.trailerButton}
 						onClick={() => {
-							const trailer = videos.find((video) => video.type === "Trailer");
+							const trailer = videos?.find((video) => video.type === "Trailer");
 							if (trailer) {
 								handlerOpenModal(trailer);
 							}
@@ -123,11 +123,7 @@ const MovieDetail = ({ item }) => {
 					>
 						Watch Trailer
 					</button>
-					<ModalComponent
-						video={modalVideo}
-						isOpen={modalIsOpen}
-						closeModal={closeModal}
-					/>
+
 					<p>{movieDetails?.tagline}</p>
 					<p>
 						<strong>Overview:</strong> {item?.overview}
@@ -180,24 +176,23 @@ const MovieDetail = ({ item }) => {
 							<strong>Videos</strong>
 						</p>
 					</div>
-					{videos.find((video) => video.type === "Trailer") && (
+					{videos?.find((video) => video.type === "Trailer") && (
 						<div
 							key={videos.find((video) => video.type === "Trailer").id}
 							className={styles.videoWrapper}
 						>
-							{videos.find((video) => video.type === "Trailer").site ===
+							{videos?.find((video) => video.type === "Trailer").site ===
 								"YouTube" && (
-								<iframe
-									width="560"
-									height="315"
-									src={`https://www.youtube.com/embed/${
-										videos.find((video) => video.type === "Trailer").key
-									}`}
-									title={videos.find((video) => video.type === "Trailer").name}
-									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-									allowFullScreen
-								></iframe>
-							)}
+									<iframe
+										width="560"
+										height="315"
+										src={`https://www.youtube.com/embed/${videos?.find((video) => video.type === "Trailer").key
+											}`}
+										title={videos?.find((video) => video.type === "Trailer").name}
+										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+										allowFullScreen
+									></iframe>
+								)}
 						</div>
 					)}
 				</div>

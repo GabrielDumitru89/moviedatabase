@@ -105,12 +105,12 @@ export const appSlice = createSlice({
 			state.movieCreditsData = action.payload;
 		},
 		openModal: (state, action) => {
-			console.log(action);
 			state.modal.isOpen = true;
 			state.modal.video = action.payload;
 		},
 		closeModal: (state, action) => {
 			state.modal.isOpen = false;
+			state.modal.video = null;
 		},
 		getImageData: (state, action) => {
 			state.imageData = action.payload;

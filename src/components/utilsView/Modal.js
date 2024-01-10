@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Modal from 'react-modal';
 import { useSelector, useDispatch } from "react-redux";
+import { closeModal } from "../../slices/appSlices";
 
 Modal.setAppElement('#root');
 
@@ -29,25 +30,24 @@ const customStyles = {
 
 const ModalComponent = () => {
 
-const dispatch = useDispatch();
-const open = useSelector((state) => (state.app.modal));
-// console.log(open);
-const video = useSelector((state) => state.app.modal?.video);
-// console.log(video);
+	const dispatch = useDispatch();
+	const open = useSelector((state) => (state.app.modal.isOpen));
+	console.log(open);
+	const video = useSelector((state) => state.app.modal.video);
+	// console.log(video);
 
-	function closeModal() {
+	function closeModalFn() {
 		dispatch(closeModal());
-	
 	}
 	return (
 		<div>
 			<Modal
-        isOpen={open}
-        onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel="Example Modal"
-      >
-				<button onClick={closeModal}>close</button>
+				isOpen={open}
+				onRequestClose={closeModalFn}
+				style={customStyles}
+				contentLabel="Example Modal"
+			>
+				<button onClick={closeModalFn}>close</button>
 				{video && video.site === "YouTube" && (
 					<iframe
 						width="560"
