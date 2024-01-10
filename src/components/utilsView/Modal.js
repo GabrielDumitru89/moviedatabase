@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Modal from 'react-modal';
+import { useSelector, useDispatch } from "react-redux";
 
 Modal.setAppElement('#root');
 
@@ -27,27 +28,26 @@ const customStyles = {
 	},
 };
 
-const ModalComponent = ({video, isOpen, closeModal}) => {
-	let subtitle;
-	const [modalIsOpen, setIsOpen] = React.useState(false);
+const ModalComponent = () => {
 
-	function afterOpenModal() {
-		// subtitle.style.color = "#f00";
-	}
+const dispatch = useDispatch();
+const open = useSelector((state) => (state.app.modal));
+// console.log(open);
+const video = useSelector((state) => state.app.modal?.video);
+// console.log(video);
 
 	function closeModal() {
-		setIsOpen(false);
+		dispatch(closeModal());
+	
 	}
 	return (
 		<div>
 			<Modal
-        isOpen={isOpen}
-        onAfterOpen={afterOpenModal}
+        isOpen={open}
         onRequestClose={closeModal}
         style={customStyles}
         contentLabel="Example Modal"
       >
-				{/* <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2> */}
 				<button onClick={closeModal}>close</button>
 				{video && video.site === "YouTube" && (
 					<iframe

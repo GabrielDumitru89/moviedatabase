@@ -8,6 +8,7 @@ import Movies from "./components/Movies";
 import SingleSeries from "./components/SingleSeries";
 import SeasonDetail from "./components/SeasonDetail";
 import EpisodeDetail from "./components/EpisodeDetail";
+import Videos from "./components/Videos"
 
 function App() {
 	return (
@@ -15,6 +16,7 @@ function App() {
 			<Route path="/" element={<Home />} />
 			<Route path="/titles" element={<Movies />} />
 			<Route path="/movie/:id" element={<Movie />} />
+			<Route path="/:type/:id/videos" element={<Videos />} />
 			<Route path="/tv/:id" element={<SingleSeries />} />
 			<Route
 				path="/series/:seriesId/season/:seasonNumber"

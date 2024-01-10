@@ -21,7 +21,7 @@
     display: flex;
     text-align: center;
     justify-content: center;
-    padding: 10px;
+    // padding: 10px;
     margin-top: 260px;
     margin-bottom: 0;
     overflow: hidden;
@@ -45,6 +45,45 @@
 
 .year {
   display: flex;
-  height: 20px
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
+.actorCard{
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5px;
+
+  img {
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  p {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    padding: 10px;
+    margin-top: 260px;
+    margin-bottom: 0;
+    overflow: hidden;
+    align-items: center;
+  }
+
+  p {
+    margin-top: 0;
+  }
+
+  cursor: pointer;
 }
 

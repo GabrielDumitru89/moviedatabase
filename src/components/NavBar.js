@@ -42,20 +42,6 @@ const NavBar = () => {
 						src="/images/tmdb.svg"
 						alt="Home"
 					/>
-					<div
-						onClick={() => {
-							navigate(`/movie/top_rated?language=en-US&page=1`);
-						}}
-					>
-						Movies
-					</div>
-					<div
-						onClick={() => {
-							navigate(`/movie/top_rated?language=en-US&page=1`);
-						}}
-					>
-						Series
-					</div>
 				</div>
 
 				<div className={styles.search}>
@@ -70,14 +56,6 @@ const NavBar = () => {
 							onChange={handleChange}
 							onKeyDown={handleKeyPress}
 						/>
-						{/* <input
-						type="input"
-						name="search"
-						value={input}
-						placeholder="Search"
-						onChange={handleChange}
-						onKeyDown={handleKeyPress}
-					/> */}
 					</div>
 					<div>
 						<button onClick={handleClick}>Search</button>

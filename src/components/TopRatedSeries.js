@@ -6,6 +6,7 @@ import Template from "./utilsView/Template";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 import "swiper/css/bundle";
+import Row from "./Row";
 
 const TopRatedSeries = () => {
 	const dispatch = useDispatch();
@@ -14,12 +15,12 @@ const TopRatedSeries = () => {
 		dispatch(topRatedSeries("/tv/top_rated?language=en-US&page=1"));
 	}, [dispatch]);
 
-	const tvSeriesData = useSelector((state) => state.app.topRatedS.data);
+	const topRatedSeriesData = useSelector((state) => state.app.topRatedS.data);
 	// console.log(tvSeriesData);
 	return (
 		<Template>
-			<div>Top Rated Series</div>
-			<Swiper
+			<div><p><strong>Top Rated Series</strong></p></div>
+			{/* <Swiper
 				modules={[Navigation, Pagination, Scrollbar, A11y]}
 				spaceBetween={0}
 				// centeredSlides={true}
@@ -47,7 +48,8 @@ const TopRatedSeries = () => {
 						<Card item={item} />
 					</SwiperSlide>
 				))}
-			</Swiper>
+			</Swiper> */}
+			<Row	items={topRatedSeriesData} />
 		</Template>
 	);
 };

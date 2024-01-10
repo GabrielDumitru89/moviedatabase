@@ -28,30 +28,28 @@ const Banner = ({ item }) => {
 					showThumbs={false}
 					interval={5000}
 				>
-					{banner1Data?.map((item) => (
-						<div
-							key={item.id}
-							className={styles.carouselWrapper}
-							onClick={() => {
-								// console.log(`Clicked item ID: ${item?.id}`);
-								navigate(`/movie/${item?.id}?language=en-US`);
-							}}
-						>
-							<div className={styles.carouselImage}>
-								<img
-									src={`https://image.tmdb.org/t/p/original/${item?.backdrop_path}`}
-									alt={item?.title}
-								/>
+					{banner1Data
+						?.filter((item) => item.backdrop_path)
+						.map((item) => (
+							<div
+								key={item.id}
+								className={styles.carouselWrapper}
+								onClick={() => {
+									navigate(`/movie/${item.id}?language=en-US`);
+								}}
+							>
+								<div className={styles.carouselImage}>
+									<img
+										src={`https://image.tmdb.org/t/p/original/${item.backdrop_path}`}
+										alt={item.title}
+									/>
+								</div>
+								<div className={styles.carouselTitle}>
+									<h1>{item.title}</h1>
+									<p>{item.overview}</p>
+								</div>
 							</div>
-							<div className={styles.carouselTitle}>
-								<h1>{item?.title}</h1>
-								<p>{item?.overview}</p>
-							</div>
-							{/* <div className={styles.carouselText}> */}
-
-							{/* </div> */}
-						</div>
-					))}
+						))}
 				</Carousel>
 			</div>
 		</div>

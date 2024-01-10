@@ -3,21 +3,22 @@ import styles from "../styles/MovieDetail.module.scss";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { videosData } from "../slices/appSlices";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
-import "swiper/swiper-bundle.css";
-import ModalComponent from "../components/utilsView/Modal";
+import { imagesData } from "../slices/appSlices";
+import { openModal } from "../slices/appSlices";
+import { closeModal } from "../slices/appSlices";
+import ModalComponent from "./utilsView/Modal";
+import Row from "./Row";
 
 const MovieDetail = ({ item }) => {
-	const [modalIsOpen, setIsOpen] = useState(false);
-	function openModal() {
-		console.log("Opening modal");
-		setIsOpen(true);
+	function handlerOpenModal(trailer) {
+		dispatch(openModal(trailer));
 	}
-	console.log("Modal is open:", modalIsOpen);
-	function closeModal() {
-		setIsOpen(false);
-	}
+	const modalVideo = useSelector((state) => state.modalVideo);
+	const modalIsOpen = useSelector((state) => state.modalIsOpen);
+
+	const handleCloseModal = () => {
+		dispatch(closeModal());
+	};
 
 	// console.log('Rendering MovieDetail')
 	// console.log('item prop:', item);
@@ -25,21 +26,23 @@ const MovieDetail = ({ item }) => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	// useEffect(() => {
-	// 	dispatch(videosData(`/movie/${item.id}/videos?language=en-US`));
-	// }, [dispatch, item]);
-	// const video = useSelector((state) => state.app?.videosData?.data);
-	// console.log(video);
-	// console.log(useSelector((state) => state));
-	// console.log(useSelector((state) => state.app.videosData));
-	// // console.log(useSelector((state) => state.app));
+	useEffect(() => {
+		dispatch(videosData(`/movie/${item.id}/videos?language=en-US`));
+	}, [dispatch, item]);
+	const videos = useSelector((state) => state.app?.videoData?.data);
+	// console.log(videos);
+
+	useEffect(() => {
+		dispatch(imagesData(`/movie/${item.id}/images`));
+	}, [item]);
+	const images = useSelector((state) => state.app.imageData);
+	// console.log(images);
+	// console.log(useSelector((state) => state.app.imageData));
 
 	const [movieDetails, setMovieDetails] = useState(null);
 	const [director, setDirector] = useState(null);
 	const [screenplayWriters, setScreenplayWriters] = useState([]);
 	const [novelWriters, setNovelWriters] = useState([]);
-	const [videos, setVideos] = useState([]);
-	const [modalVideo, setModalVideo] = useState(null);
 	const [cast, setCast] = useState([]);
 
 	useEffect(() => {
@@ -67,15 +70,6 @@ const MovieDetail = ({ item }) => {
 				);
 				setNovelWriters(data.crew.filter((member) => member.job === "Novel"));
 			});
-	}, [item]);
-
-	useEffect(() => {
-		// console.log('item prop changed2', item);
-		fetch(
-			`${process.env.REACT_APP_BASE_URL}/movie/${item.id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
-		)
-			.then((response) => response.json())
-			.then((data) => setVideos(data.results));
 	}, [item]);
 
 	useEffect(() => {
@@ -134,14 +128,12 @@ const MovieDetail = ({ item }) => {
 						onClick={() => {
 							const trailer = videos.find((video) => video.type === "Trailer");
 							if (trailer) {
-								setModalVideo(trailer);
-								openModal();
+								handlerOpenModal(trailer);
 							}
 						}}
 					>
 						Watch Trailer
 					</button>
-
 					<ModalComponent
 						video={modalVideo}
 						isOpen={modalIsOpen}
@@ -192,82 +184,53 @@ const MovieDetail = ({ item }) => {
 			<div className={styles.videoContainer}>
 				{/* <h3>Videos</h3> */}
 				<div className={styles.videos}>
-					{videos
-						.filter((video) => video.type === "Trailer")
-						.map((video) => (
-							<div key={video.id} className={styles.videoWrapper}>
-								<p>{video.type}</p>
-								{video.site === "YouTube" && (
-									<iframe
-										width="560"
-										height="315"
-										src={`https://www.youtube.com/embed/${video.key}`}
-										title={video.name}
-										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-										allowFullScreen
-									></iframe>
-								)}
-							</div>
-						))}
+					<div
+						onClick={() => navigate(`/movie/${item?.id}/videos?language=en-US`)}
+						className={styles.videoLink}
+					>
+						<p>
+							<strong>Videos</strong>
+						</p>
+					</div>
+					{videos.find((video) => video.type === "Trailer") && (
+						<div
+							key={videos.find((video) => video.type === "Trailer").id}
+							className={styles.videoWrapper}
+						>
+							{videos.find((video) => video.type === "Trailer").site ===
+								"YouTube" && (
+								<iframe
+									width="560"
+									height="315"
+									src={`https://www.youtube.com/embed/${
+										videos.find((video) => video.type === "Trailer").key
+									}`}
+									title={videos.find((video) => video.type === "Trailer").name}
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+									allowFullScreen
+								></iframe>
+							)}
+						</div>
+					)}
 				</div>
 			</div>
-
+			<div className={styles.movieImagesContainer}>
+				<div><p><strong>Images</strong></p></div>
+				<div className={styles.movieImages}>
+					{images?.backdrops?.map((image, index) => (
+						<img
+							key={index}
+							src={`https://image.tmdb.org/t/p/w500${image.file_path}`}
+							alt=""
+						/>
+					))}
+				</div>
+			</div>
 			<div className={styles.movieCast}>
 				<div>
 					<h2>Cast</h2>
 				</div>
-
-				<Swiper
-					modules={[Navigation, Pagination, Scrollbar, A11y]}
-					spaceBetween={0}
-					slidesPerView={5}
-					initialSlide={1}
-					navigation
-					pagination={{ clickable: true, dynamicBullets: true }}
-					// style={{ width: "100vw" }}
-					breakpoints={{
-						320: {
-							slidesPerView: 1,
-						},
-						768: {
-							slidesPerView: 3,
-						},
-						1024: {
-							slidesPerView: 5,
-						},
-					}}
-				>
-					{cast
-						.slice(0, 20)
-						.filter((actor) => actor.profile_path)
-						.map((actor) => (
-							<SwiperSlide
-								key={actor.id}
-								onClick={() => navigate(actor.id)}
-								style={{ cursor: "pointer" }}
-							>
-								<div
-									className={styles.castImage}
-									onClick={() => navigate(`/person/${actor.id}`)}
-								>
-									<div>
-										<img
-											src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`}
-											alt={actor.name}
-										/>
-									</div>
-									<div>
-										<p>
-											<strong>{actor.name}</strong>
-										</p>
-									</div>
-									<div>
-										<p>{actor.character}</p>
-									</div>
-								</div>
-							</SwiperSlide>
-						))}
-				</Swiper>
+				<Row items={cast} type="actor" />
 			</div>
 		</div>
 	);

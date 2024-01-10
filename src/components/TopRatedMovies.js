@@ -6,6 +6,7 @@ import Template from "./utilsView/Template";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 import "swiper/css/bundle";
+import Row from "./Row";
 
 const TopRatedMovies = () => {
 	const dispatch = useDispatch();
@@ -14,14 +15,14 @@ const TopRatedMovies = () => {
 		dispatch(topRatedMovies("/movie/top_rated?language=en-US&page=1"));
 	}, [dispatch]);
 
-	const moviesData = useSelector((state) => state.app.topRatedM.data);
+	const topRatedMoviesData = useSelector((state) => state.app.topRatedM.data);
 	// const dataSearch = useSelector((state) => state.app.searchedData.data);
 	// console.log(moviesData);
 
 	return (
 		<Template>
-			<div>Top Rated Movies</div>
-			<Swiper
+			<div><p><strong>Top Rated Movies</strong></p></div>
+			{/* <Swiper
 				modules={[Navigation, Pagination, Scrollbar, A11y]}
 				spaceBetween={0}
 				slidesPerView={5}
@@ -40,7 +41,7 @@ const TopRatedMovies = () => {
 					},
 				}}
 			>
-				{moviesData?.map((item, index) => (
+				{topRatedMoviesData?.map((item, index) => (
 					<SwiperSlide
 						key={index}
 						style={{ display: "flex", justifyContent: "center" }}
@@ -48,7 +49,8 @@ const TopRatedMovies = () => {
 						<Card item={item} />
 					</SwiperSlide>
 				))}
-			</Swiper>
+			</Swiper> */}
+			<Row items={topRatedMoviesData} />
 		</Template>
 	);
 };

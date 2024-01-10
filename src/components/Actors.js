@@ -6,6 +6,7 @@ import Template from "./utilsView/Template";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 import "swiper/css/bundle";
+import Row from "./Row";
 
 const Actors = () => {
 	const dispatch = useDispatch();
@@ -18,37 +19,12 @@ const Actors = () => {
 	// console.log(actorsData);
 	return (
 		<Template>
-			<div>Popular Actors</div>
-			<Swiper
-				modules={[Navigation, Pagination, Scrollbar, A11y]}
-				spaceBetween={0}
-				slidesPerView={5}
-				initialSlide={1}
-				navigation
-				pagination={{ clickable: true, dynamicBullets: true }}
-				style={{ width: "100%", height: "100%" }}
-				// scrollbar={{ draggable: true }}
-				breakpoints={{
-					320: {
-						slidesPerView: 1,
-					},
-					768: {
-						slidesPerView: 3,
-					},
-					1024: {
-						slidesPerView: 5,
-					},
-				}}
-			>
-				{actorsData?.map((item, index) => (
-					<SwiperSlide
-						key={index}
-						style={{ display: "flex", justifyContent: "center" }}
-					>
-						<ActorsCard item={item} />
-					</SwiperSlide>
-				))}
-			</Swiper>
+			<div>
+				<p>
+					<strong>Popular Actors</strong>
+				</p>
+			</div>
+			<Row items={actorsData} type="actor" />
 		</Template>
 	);
 };

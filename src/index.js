@@ -24,7 +24,7 @@ root.render(
 		<PersistGate loading={null} persistor={persistor}>
 			<App />
 			<Toast />
-			{/* <ModalComponent /> */}
+			<ModalComponent />
 			</PersistGate>
 		</BrowserRouter>
 	</Provider>

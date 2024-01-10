@@ -68,6 +68,7 @@
   width: 200px;
   height: 300px;
   object-fit: cover;
+  border-radius: 12px;
 }
 
 .movieDetails {
@@ -107,9 +108,14 @@
 }
 .videos{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   width: 100%;
+  div {
+    p{
+      cursor: pointer;
+    }
+  }
 }
 
 .videoWrapper {
@@ -120,18 +126,36 @@
   }
 }
 
-.movieCast{
-  display: flex;
-  flex-direction: column;
-  // width: 100%;
+.movieImagesContainer {
+  position: relative; 
+  overflow: hidden; 
+  width: 1300px;
 }
 
-.castImage{
+.movieImages {
   display: flex;
-  flex-direction: column;
-  width: 200px;
-}
+  overflow-x: scroll; 
+  overflow-y: hidden; 
+  scrollbar-width: thin; 
+  scrollbar-color: rgba(155, 155, 155, 0.7) transparent; 
 
-.swiper {
-  width: 100%;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(155, 155, 155, 0.7);
+    border-radius: 20px;
+    border: transparent;
+  }
+
+  img {
+    height: 100px;
+    flex: 0 0 auto;
+    padding: 5px;
+  }
 }

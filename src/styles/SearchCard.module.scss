@@ -27,6 +27,8 @@
 .image {
   // position: absolute;
   width: 100px;
-  height: 100px;
+  height: 150px;
   object-fit: cover;
+  border-radius: 5px;
+  object-position: top;
 }

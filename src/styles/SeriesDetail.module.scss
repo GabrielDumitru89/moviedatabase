@@ -39,12 +39,13 @@
   height: 100%;
   object-fit: cover;
   object-position: top;
+  border-radius: 12px;
 }
 
 .seriesTitle {
-  bottom: 0;
+  // bottom: 0;
   color: #fff;
-  
+  margin-top: 0px;
 }
 
 .releaseAndGenres {
@@ -69,6 +70,7 @@
   width: 200px;
   height: 300px;
   object-fit: cover;
+  border-radius: 12px;
 }
 
 .seriesDetails {
@@ -77,9 +79,13 @@
 }
 .seriesCredits {
   display: flex;
+  align-content: center;
+  align-items: center;
+  flex-direction: row;
   div {
     padding: 10px;
-    width: 33%;
+    // width: 33%;
+    display: flex;
   }
 }
 
@@ -106,11 +112,17 @@
     background: #555;
   }
 }
+
 .videos{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   width: 100%;
+  div {
+    p{
+      cursor: pointer;
+    }
+  }
 }
 
 .videoWrapper {
@@ -123,8 +135,10 @@
 
 .seriesCast{
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   flex-direction: column;
-  // width: 100%;
+  align-items: center;
 }
 
 .castImage{
@@ -133,6 +147,44 @@
   width: 200px;
 }
 
-.swiper {
-  width: 100%;
+.seasons{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.movieImagesContainer {
+  position: relative; 
+  overflow: hidden; 
+  width: 1300px;
+}
+
+.movieImages {
+  display: flex;
+  overflow-x: scroll; 
+  overflow-y: hidden; 
+  scrollbar-width: thin; 
+  scrollbar-color: rgba(155, 155, 155, 0.7) transparent; 
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(155, 155, 155, 0.7);
+    border-radius: 20px;
+    border: transparent;
+  }
+
+  img {
+    height: 100px;
+    flex: 0 0 auto;
+    padding: 5px;
+  }
 }

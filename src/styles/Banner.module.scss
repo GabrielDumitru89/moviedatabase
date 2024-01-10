@@ -1,8 +1,17 @@
 .Banner{
   display: flex;
   justify-content: center;
+  height: 600px;
 }
 
+.bannerWrapper,
+.carousel-root {
+	cursor: pointer;
+	display: flex;
+	width: 1300px;
+	height: 600px;
+
+}
 
 .carouselWrapper {
   position: relative;
@@ -11,7 +20,7 @@
 
 .carouselImage {
   width: 100%;
-  height: auto;
+  max-height: 600px;
   z-index: 10;
 }
 .carouselTitle {
@@ -24,9 +33,8 @@
   width: 100%;
   height: 100%;
   color: #fff;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  background-color: rgba(0, 0, 0, 0.5); 
   padding: 20px;
-  // max-width: 80%;
   p {
     max-width: 50%;
   }

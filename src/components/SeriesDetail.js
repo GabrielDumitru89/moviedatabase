@@ -4,9 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { videosData } from "../slices/appSlices";
+import { imagesData } from "../slices/appSlices";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 import "swiper/swiper-bundle.css";
+import Row from "./Row";
 
 const SeriesDetail = ({ item }) => {
 	// console.log('Rendering SeriesDetail')
@@ -15,10 +17,24 @@ const SeriesDetail = ({ item }) => {
 	// console.log('item', item);
 
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const [seriesDetails, setSeriesDetails] = useState(null);
-	const [videos, setVideos] = useState([]);
+	// const [videos, setVideos] = useState([]);
 	const [cast, setCast] = useState([]);
+
+	useEffect(() => {
+		dispatch(imagesData(`/tv/${item.id}/images`));
+	}, [item]);
+	const images = useSelector((state) => state.app.imageData);
+	// console.log(images);
+	// console.log(useSelector((state) => state.app.imageData));
+
+	useEffect(() => {
+		dispatch(videosData(`/tv/${item.id}/videos?language=en-US`));
+	}, [dispatch, item]);
+	const videos = useSelector((state) => state.app?.videoData?.data);
+	// console.log(videos);
 
 	useEffect(() => {
 		// console.log('item prop changed1', item);
@@ -29,14 +45,14 @@ const SeriesDetail = ({ item }) => {
 			.then((data) => setSeriesDetails(data));
 	}, [id]);
 
-	useEffect(() => {
-		// console.log('item prop changed2', item);
-		fetch(
-			`${process.env.REACT_APP_BASE_URL}/tv/${id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
-		)
-			.then((response) => response.json())
-			.then((data) => setVideos(data.results));
-	}, [id]);
+	// useEffect(() => {
+	// 	// console.log('item prop changed2', item);
+	// 	fetch(
+	// 		`${process.env.REACT_APP_BASE_URL}/tv/${id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
+	// 	)
+	// 		.then((response) => response.json())
+	// 		.then((data) => setVideos(data.results));
+	// }, [id]);
 
 	useEffect(() => {
 		// console.log('item prop changed3', item);
@@ -72,161 +88,96 @@ const SeriesDetail = ({ item }) => {
 						))}
 					</div>
 					<p>{seriesDetails?.tagline}</p>
-					<h3>Original Name: {seriesDetails?.original_name}</h3>
-					<h3>Overview:</h3>
 					<p>{seriesDetails?.overview}</p>
 					<div className={styles.seriesCredits}>
-						<h3>Created By:</h3>
-						{seriesDetails?.created_by.map((creator, index) => (
-							<div key={index}>
-								<p>Name: {creator.name}</p>
-								{/* <img
-										// src={`https://image.tmdb.org/t/p/w200/${creator.profile_path}`}
-										alt={creator.name}
-									/> */}
-							</div>
-						))}
-						<h3>
-							Episode Run Time: {seriesDetails?.episode_run_time[0]} minutes
-						</h3>
+						<p>
+							<strong>Created By:</strong>
+						</p>
+						<div>
+							{seriesDetails?.created_by.map((creator, index) => (
+								<div key={index}>
+									<p>{creator.name}</p>
+								</div>
+							))}
+						</div>
+					</div>
+					<div>
+						<p>
+							<strong>Episode Run Time: </strong>
+							{seriesDetails?.episode_run_time[0]} minutes
+						</p>
 					</div>
 				</div>
 			</div>
 			<div className={styles.videoContainer}>
 				<div className={styles.videos}>
-					{videos
-						.filter((video) => video.type === "Trailer")
-						.map((video) => (
-							<div key={video.id} className={styles.videoWrapper}>
-								<p>{video.type}</p>
-								{video.site === "YouTube" && (
-									<iframe
-										width="560"
-										height="315"
-										src={`https://www.youtube.com/embed/${video.key}`}
-										title={video.name}
-										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-										allowFullScreen
-									></iframe>
-								)}
-							</div>
-						))}
+					<div
+						onClick={() => navigate(`/tv/${item?.id}/videos?language=en-US`)}
+						className={styles.videoLink}
+					>
+						<p>
+							<strong>Videos</strong>
+						</p>
+					</div>
+					{videos.find((video) => video.type === "Trailer") && (
+						<div
+							key={videos.find((video) => video.type === "Trailer").id}
+							className={styles.videoWrapper}
+						>
+							{videos.find((video) => video.type === "Trailer").site ===
+								"YouTube" && (
+								<iframe
+									width="560"
+									height="315"
+									src={`https://www.youtube.com/embed/${
+										videos.find((video) => video.type === "Trailer").key
+									}`}
+									title={videos.find((video) => video.type === "Trailer").name}
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+									allowFullScreen
+								></iframe>
+							)}
+						</div>
+					)}
+				</div>
+			</div>
+			<div className={styles.movieImagesContainer}>
+				<div>
+					<p>
+						<strong>Images</strong>
+					</p>
+				</div>
+				<div className={styles.movieImages}>
+					{images?.backdrops?.map((image, index) => (
+						<img
+							key={index}
+							src={`https://image.tmdb.org/t/p/w500${image.file_path}`}
+							alt=""
+						/>
+					))}
 				</div>
 			</div>
 
 			<div className={styles.seriesCast}>
 				<div>
-					<h2>Cast</h2>
+					<p>
+						<strong>Cast</strong>
+					</p>
 				</div>
-
-				<Swiper
-					modules={[Navigation, Pagination, Scrollbar, A11y]}
-					spaceBetween={0}
-					slidesPerView={5}
-					initialSlide={1}
-					navigation
-					pagination={{ clickable: true, dynamicBullets: true }}
-					style={{ width: "100vw" }}
-					breakpoints={{
-						320: {
-							slidesPerView: 1,
-						},
-						768: {
-							slidesPerView: 3,
-						},
-						1024: {
-							slidesPerView: 5,
-						},
-					}}
-				>
-					{cast
-						.slice(0, 20)
-						.filter((actor) => actor.profile_path)
-						.map((actor) => (
-							<SwiperSlide
-								key={actor.id}
-								onClick={() => navigate(actor.id)}
-								style={{ cursor: "pointer" }}
-							>
-								<div
-									className={styles.castImage}
-									onClick={() => navigate(`/person/${actor.id}`)}
-								>
-									<div>
-										<img
-											src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`}
-											alt={actor.name}
-										/>
-									</div>
-									<div>
-										<p>
-											<strong>{actor.name}</strong>
-										</p>
-									</div>
-									{/* <div>
-										{actor.roles.map((role, index) => (
-											<div key={index}>
-												<p>Character: {role.character}</p>
-												<p>Episode Count: {role.episode_count}</p>
-											</div>
-										))}
-									</div> */}
-									<div>
-										{actor.roles[0] && (
-											<div>
-												<p>Character: {actor.roles[0].character}</p>
-												<p>Episode Count: {actor.roles[0].episode_count}</p>
-											</div>
-										)}
-									</div>
-								</div>
-							</SwiperSlide>
-						))}
-				</Swiper>
+				<Row items={cast} type="actor" />
 			</div>
+
 			<div className={styles.seasons}>
-				<Swiper
-					modules={[Navigation, Pagination, Scrollbar, A11y]}
-					spaceBetween={0}
-					slidesPerView={5}
-					initialSlide={1}
-					navigation
-					pagination={{ clickable: true, dynamicBullets: true }}
-					style={{ width: "100vw" }}
-					breakpoints={{
-						320: {
-							slidesPerView: 1,
-						},
-						768: {
-							slidesPerView: 3,
-						},
-						1024: {
-							slidesPerView: 5,
-						},
-					}}
-				>
-					{seriesDetails?.seasons.map((season, index) => (
-						<SwiperSlide
-							key={index}
-							onClick={() =>
-								navigate(
-									`/series/${seriesDetails.id}/season/${season.season_number}`
-								)
-							}
-							style={{ cursor: "pointer" }}
-						>
-							<div>
-								<img
-									src={`https://image.tmdb.org/t/p/w200/${season.poster_path}`}
-									alt={season.name}
-								/>
-								<h4>{season.name}</h4>
-								<p>Episodes: {season.episode_count}</p>
-								<p>Air Date: {season.air_date}</p>
-							</div>
-						</SwiperSlide>
-					))}
-				</Swiper>
+				<div>
+					<p>
+						<strong>Seasons</strong>
+					</p>
+				</div>
+				<Row
+					items={seriesDetails?.seasons}
+					type="season"
+					seriesId={seriesDetails?.id}
+				/>
 			</div>
 		</div>
 	);

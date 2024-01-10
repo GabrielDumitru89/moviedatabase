@@ -6,6 +6,7 @@ import Template from "./utilsView/Template";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 import "swiper/css/bundle";
+import Row from "./Row";
 
 const Series = () => {
 	const dispatch = useDispatch();
@@ -18,35 +19,8 @@ const Series = () => {
 	// console.log(tvSeriesData);
 	return (
 		<Template>
-			<div>Series</div>
-			<Swiper
-				modules={[Navigation, Pagination, Scrollbar, A11y]}
-				spaceBetween={0}
-				slidesPerView={5}
-				initialSlide={1}
-				navigation
-				pagination={{ clickable: true, dynamicBullets: true }}
-				breakpoints={{
-					320: {
-						slidesPerView: 1,
-					},
-					768: {
-						slidesPerView: 3,
-					},
-					1024: {
-						slidesPerView: 5,
-					},
-				}}
-			>
-				{tvSeriesData?.map((item, index) => (
-					<SwiperSlide
-						key={index}
-						style={{ display: "flex", justifyContent: "center" }}
-					>
-						<Card item={item} />
-					</SwiperSlide>
-				))}
-			</Swiper>
+			<div><p><strong>Series</strong></p></div>
+			<Row items={tvSeriesData} />
 		</Template>
 	);
 };

@@ -5,6 +5,10 @@ const initialState = {
 	appData: {
 		data: null,
 	},
+	modal: {
+		isOpen: false,
+		video: null,
+	},
 	bannerData: {
 		data: null,
 	},
@@ -42,6 +46,9 @@ const initialState = {
 		data: null,
 	},
 	movieCreditsData: {
+		data: null,
+	},
+	imageData: {
 		data: null,
 	},
 };
@@ -102,7 +109,18 @@ export const appSlice = createSlice({
 		// },
 		getMovieCreditsData: (state, action) => {
 			state.movieCreditsData = action.payload;
-	},
+		},
+		openModal: (state, action) => {
+			console.log(action);
+			state.modal.isOpen = true;
+			state.modal.video = action.payload;
+		},
+		closeModal: (state, action) => {
+			state.modal.isOpen = false;
+		},
+		getImageData: (state, action) => {
+			state.imageData = action.payload;
+		},
 	},
 });
 
@@ -121,6 +139,9 @@ export const {
 	getEpisodeData,
 	getTvCreditsData,
 	getMovieCreditsData,
+	openModal,
+	closeModal,
+	getImageData,
 } = appSlice.actions;
 
 export const navData = (payload) => async (dispatch) => {
@@ -197,10 +218,10 @@ export const topRatedSeries = (payload) => async (dispatch) => {
 
 export const videosData = (payload) => async (dispatch) => {
 	try {
-		console.log("videosData action is being called");
-		console.log("payload:", payload);
+		// console.log("videosData action is being called");
+		// console.log("payload:", payload);
 		const response = await fetcher(payload);
-		console.log(response);
+		// console.log(response);
 		dispatch(getVideoData(response.results));
 	} catch (error) {
 		console.error("Error fetching data:", error.message);
@@ -268,7 +289,20 @@ export const movieCreditsData1 = (payload) => async (dispatch) => {
 		dispatch(getMovieCreditsData(response));
 		// console.log("Dispatching action with response:", response);
 	} catch (error) {
-		console.log("Caught an error:", error);
+		// console.log("Caught an error:", error);
+		console.error("Error fetching data:", error.message);
+	}
+};
+
+export const imagesData = (payload) => async (dispatch) => {
+	try {
+		// console.log(payload);
+		const response = await fetcher(payload);
+		// console.log("Response from fetcher:", response);
+		dispatch(getImageData(response));
+		// console.log("Dispatching action with response:", response);
+	} catch (error) {
+		// console.log("Caught an error:", error);
 		console.error("Error fetching data:", error.message);
 	}
 };
