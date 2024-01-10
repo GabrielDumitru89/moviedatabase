@@ -22,34 +22,6 @@ const TopRatedMovies = () => {
 	return (
 		<Template>
 			<div><p><strong>Top Rated Movies</strong></p></div>
-			{/* <Swiper
-				modules={[Navigation, Pagination, Scrollbar, A11y]}
-				spaceBetween={0}
-				slidesPerView={5}
-				initialSlide={1}
-				navigation
-				pagination={{ clickable: true, dynamicBullets: true }}
-				breakpoints={{
-					320: {
-						slidesPerView: 1,
-					},
-					768: {
-						slidesPerView: 3,
-					},
-					1024: {
-						slidesPerView: 5,
-					},
-				}}
-			>
-				{topRatedMoviesData?.map((item, index) => (
-					<SwiperSlide
-						key={index}
-						style={{ display: "flex", justifyContent: "center" }}
-					>
-						<Card item={item} />
-					</SwiperSlide>
-				))}
-			</Swiper> */}
 			<Row items={topRatedMoviesData} />
 		</Template>
 	);

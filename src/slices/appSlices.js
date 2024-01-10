@@ -101,12 +101,6 @@ export const appSlice = createSlice({
 		getTvCreditsData: (state, action) => {
 			state.tvCreditsData.data = action.payload;
 		},
-		// getTvCreditsData: (state, action) => {
-		// 	if (!state.tvCreditsData) {
-		// 		state.tvCreditsData = {};
-		// 	}
-		// 	state.tvCreditsData.data = action.payload;
-		// },
 		getMovieCreditsData: (state, action) => {
 			state.movieCreditsData = action.payload;
 		},

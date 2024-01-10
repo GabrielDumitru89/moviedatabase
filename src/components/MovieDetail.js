@@ -112,17 +112,6 @@ const MovieDetail = ({ item }) => {
 							{movieDetails?.runtime % 60}m
 						</p>
 					</div>
-					{/* <button
-						className={styles.trailerButton}
-						onClick={() => {
-							const trailer = videos.find((video) => video.type === "Trailer");
-							if (trailer) {
-								setVideos([trailer]);
-							}
-						}}
-					>
-						Watch Trailer
-					</button> */}
 					<button
 						className={styles.trailerButton}
 						onClick={() => {
@@ -182,7 +171,6 @@ const MovieDetail = ({ item }) => {
 				</div>
 			</div>
 			<div className={styles.videoContainer}>
-				{/* <h3>Videos</h3> */}
 				<div className={styles.videos}>
 					<div
 						onClick={() => navigate(`/movie/${item?.id}/videos?language=en-US`)}

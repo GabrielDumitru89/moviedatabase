@@ -1,23 +1,32 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
-import { oneEpisodeData, oneSeasonData } from "../slices/appSlices";
+import { oneEpisodeData} from "../slices/appSlices";
 import { useEffect } from "react";
+import NavBar from "./NavBar";
+import Row from "./Row";
 
 const EpisodeDetail = () => {
+
 	const { seriesId, seasonNumber, episodeNumber } = useParams();
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		dispatch(oneEpisodeData({ seriesId, seasonNumber, episodeNumber }));
 	}, [dispatch, seriesId, seasonNumber, episodeNumber]);
 
-	// const episodeData = useSelector((state) => state.app.oneEpisodeData?.data);
-	const { episodeData } = useSelector((state) => state.app);
-	console.log(episodeData);
+	const { episodeData, episodeCredits } = useSelector((state) => state.app);
+	// console.log(episodeData);
+
+	const director = episodeData?.crew?.find(
+		(member) => member.job === "Director"
+	);
+	const writer = episodeData?.crew?.find((member) => member.job === "Writer");
 
 	return (
 		<div>
+			<NavBar />
 			{episodeData && (
 				<div>
 					<div>
@@ -36,6 +45,10 @@ const EpisodeDetail = () => {
 						<p>Air Date: {episodeData.air_date}</p>
 					</div>
 					<div>
+						{director && <p>Director: {director.name}</p>}
+						{writer && <p>Writer: {writer.name}</p>}
+					</div>
+					<div>
 						<p>
 							S {episodeData.season_number} E {episodeData.episode_number}
 						</p>
@@ -49,9 +62,7 @@ const EpisodeDetail = () => {
 					<div>
 						<p>Vote Count: {episodeData.vote_count}</p>
 					</div>
-					<div></div>
-					<div></div>
-					<div></div>
+					<Row items={episodeCredits?.cast} type="actor" />
 				</div>
 			)}
 		</div>

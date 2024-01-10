@@ -40,7 +40,6 @@ const SeasonDetail = () => {
 			<div>
 				<p>Air Date: {seasonData?.air_date}</p>
 			</div>
-			{/*   */}
 			<Row items={seasonData?.episodes} type="episode" seriesId={seriesId} />
 		</div>
 	);
