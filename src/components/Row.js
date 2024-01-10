@@ -6,19 +6,19 @@ import "swiper/swiper-bundle.css";
 import "../styles/Swiper.scss";
 
 
-const Row = ({ items, type, seriesId}) => {
+const Row = ({ items, type, seriesId }) => {
 	const data =
 		type === "actors"
 			? actorsData
 			: type === "movies"
-			? moviesData
-			: type === "tv"
-			? tvShowsData
-      // : type="season"
-      // ? seriesDetails
-			// : type === 'episode'
-      // ? seasonData
-      : null;
+				? moviesData
+				: type === "tv"
+					? tvShowsData
+					// : type="season"
+					// ? seriesDetails
+					// : type === 'episode'
+					// ? seasonData
+					: null;
 	// console.log(data);
 
 	return (
@@ -30,7 +30,7 @@ const Row = ({ items, type, seriesId}) => {
 			initialSlide={0}
 			navigation
 			pagination={{ clickable: true, dynamicBullets: true }}
-			style={{ width: "100vw" }}
+			style={{ width: "auto" }}
 			breakpoints={{
 				320: {
 					slidesPerView: 1,

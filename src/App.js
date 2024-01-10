@@ -20,7 +20,7 @@ function App() {
 			<Route path="/tv/:id" element={<SingleSeries />} />
 			<Route
 				path="/series/:seriesId/season/:seasonNumber"
-				element={<SeasonDetail />}                                                 
+				element={<SeasonDetail />}
 			/>
 			<Route
 				path="/tv/:seriesId/season/:seasonNumber/episode/:episodeNumber"

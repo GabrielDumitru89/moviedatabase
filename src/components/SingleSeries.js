@@ -24,7 +24,7 @@ const SingleSeries = () => {
 	const topRatedS = useSelector((state) => state.app.topRatedS.data);
 	const bannerData = useSelector((state) => state.app.bannerData.data);
 	const tvCreditsData = useSelector(
-		(state) => state.app.tvCreditsData.data.cast
+		(state) => state.app.tvCreditsData.data
 	);
 
 	const singleSeries = [
