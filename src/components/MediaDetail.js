@@ -20,7 +20,7 @@ const MediaDetail = ({ item, mediaType }) => {
 		// console.log(imagesData);
 	}, [item]);
 
-	const images = useSelector((state) => state.app.imageData);
+	const images = useSelector((state) => state.app.imageData?.data);
 	// console.log(images);
 
 	useEffect(() => {
@@ -230,7 +230,7 @@ const MediaDetail = ({ item, mediaType }) => {
 					</button>
 
 					<p>{mediaDetails?.tagline}</p>
-					<p>
+					<p className={styles.overview}>
 						<strong>Overview:</strong> {mediaDetails?.overview}
 					</p>
 

@@ -1,24 +1,41 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
-import { oneEpisodeData} from "../slices/appSlices";
+import { oneEpisodeData, imagesData } from "../slices/appSlices";
 import { useEffect } from "react";
 import NavBar from "./NavBar";
 import Row from "./Row";
+import styles from "../styles/EpisodeDetail.module.scss";
+import * as basicLightbox from "basiclightbox";
 
 const EpisodeDetail = () => {
-
 	const { seriesId, seasonNumber, episodeNumber } = useParams();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		// dispatch(oneEpisodeData({ seriesId, seasonNumber, episodeNumber }));
-		dispatch(oneEpisodeData(`/tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}?language=en-US`));
+		dispatch(
+			oneEpisodeData(
+				`/tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}?language=en-US`
+			)
+		);
 	}, [dispatch, seriesId, seasonNumber, episodeNumber]);
 
 	const { episodeData, episodeCredits } = useSelector((state) => state.app);
 	// console.log(episodeData);
+	// console.log(episodeCredits);
+	console.log(useSelector((state) => state.app));
+
+	useEffect(() => {
+		dispatch(
+			imagesData(
+				`/tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}/images?language=en-US`
+			)
+		);
+	}, [dispatch, seriesId, seasonNumber, episodeNumber]);
+	const images = useSelector((state) => state.app.imageData?.data);
+	console.log(images);
 
 	const director = episodeData?.crew?.find(
 		(member) => member.job === "Director"
@@ -35,6 +52,12 @@ const EpisodeDetail = () => {
 							src={`https://image.tmdb.org/t/p/w1280${episodeData.still_path}`}
 							alt={episodeData.name}
 						/>
+					</div>
+					<div>
+					<img
+							src={`https://image.tmdb.org/t/p/w200${episodeData.still_path}`}
+							alt={episodeData.name}
+						/>	
 					</div>
 					<div>
 						<h2>{episodeData.name}</h2>
@@ -63,7 +86,27 @@ const EpisodeDetail = () => {
 					<div>
 						<p>Vote Count: {episodeData.vote_count}</p>
 					</div>
-					<Row items={episodeCredits?.cast} type="actor" />
+					<div className={styles.mediaImages}>
+					{images?.backdrops?.map((image, index) => (
+						<div
+							key={index}
+							onClick={() => {
+								const instance = basicLightbox.create(`
+            <img src="https://image.tmdb.org/t/p/w1280${image.file_path}" width="800" height="600">
+          `);
+								instance.show();
+							}}
+						>
+							<img
+								src={`https://image.tmdb.org/t/p/w1280${image.file_path}`}
+								alt=""
+							/>
+						</div>
+					))}
+				</div>
+					<div>
+						<Row items={episodeCredits?.cast} type="actor" />
+					</div>
 				</div>
 			)}
 		</div>

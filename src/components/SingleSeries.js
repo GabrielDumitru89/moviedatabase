@@ -4,7 +4,6 @@ import NavBar from "./NavBar";
 import { useParams } from "react-router-dom";
 import Template from "./utilsView/Template";
 import MediaDetail from "./MediaDetail";
-// import SeriesDetail from "./SeriesDetail";
 
 const SingleSeries = () => {
 	const { id } = useParams();

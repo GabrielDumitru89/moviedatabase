@@ -1,10 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logInAction5 } from "../slices/appSlices";
-import ActorsCard from "./ActorsCard";
 import Template from "./utilsView/Template";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 import "swiper/css/bundle";
 import Row from "./Row";
 

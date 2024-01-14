@@ -5,7 +5,7 @@ import styles from "../styles/Card.module.scss";
 const Card = ({ item, type, seriesId }) => {
 	const navigate = useNavigate();
 	// console.log(item);
-
+	console.log("Roles:", item?.roles);
 	if (type === "actor") {
 		return (
 			<div
@@ -25,10 +25,16 @@ const Card = ({ item, type, seriesId }) => {
 				<div>
 					<p>{item?.name}</p>
 				</div>
-				{item?.roles && item.roles[0] && (
+				{item?.roles && item.roles.length > 0 ? (
 					<div>
-						<p>Character: {item.roles[0].character}</p>
+						<p> {item.roles[0].character}</p>
 					</div>
+				) : (
+					item?.character && (
+						<div>
+							<p>{item.character}</p>
+						</div>
+					)
 				)}
 				{item?.total_episode_count && (
 					<div>
@@ -90,6 +96,14 @@ const Card = ({ item, type, seriesId }) => {
 						<strong>{item.name}</strong>
 					</p>
 				</div>
+				<div>
+					{item?.roles && item.roles[0] && (
+						<div>
+							<p>Character: {item.roles[0].character}</p>
+							{item.episode_count && <p>Episodes: {item.episode_count}</p>}
+						</div>
+					)}
+				</div>
 				<div className={styles.year}>
 					<p>Air Date: {item.air_date}</p>
 				</div>
@@ -124,6 +138,22 @@ const Card = ({ item, type, seriesId }) => {
 				<p>
 					<strong>{item?.title || item?.name}</strong>
 				</p>
+			</div>
+			<div
+				className={`${styles.credits} ${
+					!item || (!item.character && !item.episode_count) ? styles.noData : ""
+				}`}
+			>
+				{item?.roles && (
+					<div>
+						<p>Character: {item.roles.character}</p>
+					</div>
+				)}
+				{item.total_episode_count && (
+					<div>
+						<p>Episodes: {item.total_episode_count}</p>
+					</div>
+				)}
 			</div>
 			<div className={styles.year}>
 				<p>{item?.release_date || item?.first_air_date}</p>

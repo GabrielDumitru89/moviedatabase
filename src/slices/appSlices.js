@@ -40,8 +40,13 @@ const initialState = {
 		data: null,
 	},
 	episodeData: {
-		data: null,
-	},
+    data: null,
+    loading: true,
+  },
+  episodeCredits: {
+    data: null,
+    loading: true,
+  },
 	tvCreditsData: {
 		data: null,
 	},
@@ -96,7 +101,12 @@ export const appSlice = createSlice({
 			state.seasonData.data = action.payload;
 		},
 		getEpisodeData: (state, action) => {
-			state.episodeData = action.payload;
+			state.episodeData.data = action.payload;
+			state.episodeData.loading = false;
+		},
+		getEpisodeCredits: (state, action) => {
+			state.episodeCredits.data = action.payload;
+			state.episodeCredits.loading = false;
 		},
 		getTvCreditsData: (state, action) => {
 			state.tvCreditsData.data = action.payload;
@@ -104,16 +114,8 @@ export const appSlice = createSlice({
 		getMovieCreditsData: (state, action) => {
 			state.movieCreditsData = action.payload;
 		},
-		openModal: (state, action) => {
-			state.modal.isOpen = true;
-			state.modal.video = action.payload;
-		},
-		closeModal: (state, action) => {
-			state.modal.isOpen = false;
-			state.modal.video = null;
-		},
 		getImageData: (state, action) => {
-			state.imageData = action.payload;
+			state.imageData.data = action.payload;
 		},
 	},
 });
@@ -131,6 +133,7 @@ export const {
 	getVideoData,
 	getSeasonData,
 	getEpisodeData,
+	getEpisodeCredits,
 	getTvCreditsData,
 	getMovieCreditsData,
 	openModal,
@@ -247,14 +250,25 @@ export const oneSeasonData = (payload) => async (dispatch) => {
 
 export const oneEpisodeData = (payload) => async (dispatch) => {
 	try {
-		console.log(payload);
+		// console.log(payload);
 		// const url = `/tv/${payload.seriesId}/season/${payload.seasonNumber}/episode/${payload.episodeNumber}?language=en-US`;
 		const response = await fetcher(payload);
-		console.log(response);
+		// console.log(response);
 		dispatch(getEpisodeData(response));
 	} catch (error) {
 		console.error("Error fetching data:", error.message);
 	}
+};
+
+export const fetchEpisodeCredits = (payload) => async (dispatch) => {
+  try {
+		// console.log(payload);
+    const response = await fetcher(payload);
+    dispatch(getEpisodeCredits(response));
+		// console.log("Response from fetcher:", response);
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
+  }
 };
 
 export const tvCreditsData1 = (payload) => async (dispatch) => {

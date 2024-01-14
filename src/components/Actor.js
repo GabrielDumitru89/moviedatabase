@@ -89,7 +89,6 @@ const Actor = () => {
 			<NavBar />
 			<Template>
 				<div className={styles.actorContainer}>
-					<div>
 						<div className={styles.imageContainer}>
 							<img
 								src={
@@ -99,27 +98,27 @@ const Actor = () => {
 								}
 								alt={actor?.name}
 							/>
-							<div>
+							<div className={styles.personalInfo}>
 								<p>
 									<strong>Personal Info</strong>
 								</p>
 							</div>
-							<div>
+							<div className={styles.knownFor}>
 								<p>
 									<strong>Known for</strong>
 								</p>
 								<p>{actor?.known_for_department}</p>
 							</div>
-							<div>
+							{/* <div> */}
 								<p>
 									<strong>Birthday</strong>
 								</p>
 								<p>{actor?.birthday}</p>
-							</div>
-							<div>
+							{/* </div> */}
+							{/* <div> */}
 								<p>{actor?.place_of_birth}</p>
-							</div>
-							<div>
+							{/* </div> */}
+							<div className={styles.knownAs}>
 								<p>
 									<strong>Also Known As</strong>
 								</p>
@@ -128,17 +127,11 @@ const Actor = () => {
 								))}
 							</div>
 						</div>
-					</div>
 
-					<div>
-						<div>
-							<h1>{actor?.name}</h1>
-						</div>
-
-						{/* <div>
+					<div className={styles.actorDetails}>
+							<p><strong>{actor?.name}</strong></p>
 						<p>Popularity: {actor?.popularity}</p>
-					</div> */}
-						<div>
+						{/* <div> */}
 							<div className={styles.actorBiography}>
 								<p>
 									<strong>Biography:</strong>
@@ -147,7 +140,7 @@ const Actor = () => {
 									<p key={index}>{paragraph}</p>
 								))}
 							</div>
-							<div>
+							{/* <div> */}
 								<div className={styles.actorCredits}>
 									<h2>Movie Credits</h2>
 									<div className={styles.movieCredits}>
@@ -159,8 +152,7 @@ const Actor = () => {
 											))}
 									</div>
 								</div>
-							</div>
-						</div>
+						{/* </div> */}
 					</div>
 				</div>
 			</Template>

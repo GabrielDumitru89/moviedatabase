@@ -12,9 +12,6 @@ const Movie = () => {
 	const { id } = useParams();
 	const { mediaType } = useParams();
 	// console.log('id:', id);
-	// console.log(id);
-	// const condition = null;
-	// const movies = useSelector((state) => condition ? state.app.movieData.data : state.app.topRatedM.data);
 
 	const movieData = useSelector((state) => state.app.movieData.data);
 	const searchData = useSelector((state) => state.app.searchedData.data);
