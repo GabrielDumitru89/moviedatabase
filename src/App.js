@@ -6,9 +6,10 @@ import Movie from "./components/Movie";
 import Actor from "./components/Actor";
 import Movies from "./components/Movies";
 import SingleSeries from "./components/SingleSeries";
+import MediaDetailContainer from "./components/MediaDetailContainer";
 import SeasonDetail from "./components/SeasonDetail";
 import EpisodeDetail from "./components/EpisodeDetail";
-import Videos from "./components/Videos"
+import Videos from "./components/Videos";
 
 function App() {
 	return (
@@ -16,8 +17,10 @@ function App() {
 			<Route path="/" element={<Home />} />
 			<Route path="/titles" element={<Movies />} />
 			<Route path="/movie/:id" element={<Movie />} />
-			<Route path="/:type/:id/videos" element={<Videos />} />
 			<Route path="/tv/:id" element={<SingleSeries />} />
+			{/* <Route path="/movie/:id/" element={<MediaDetailContainer />} />
+			<Route path="/tv/:id/" element={<MediaDetailContainer />} /> */}
+			<Route path="/:type/:id/videos" element={<Videos />} />
 			<Route
 				path="/series/:seriesId/season/:seasonNumber"
 				element={<SeasonDetail />}

@@ -237,8 +237,7 @@ export const oneSeasonData = (payload) => async (dispatch) => {
 	try {
 		const { seriesId, seasonNumber } = payload;
 		// console.log(payload)
-		const url = `/tv/${seriesId}/season/${seasonNumber}?language=en-US`;
-		const response = await fetcher(url);
+		const response = await fetcher(payload);
 		// console.log(response);
 		dispatch(getSeasonData(response));
 	} catch (error) {
@@ -248,10 +247,10 @@ export const oneSeasonData = (payload) => async (dispatch) => {
 
 export const oneEpisodeData = (payload) => async (dispatch) => {
 	try {
-		// console.log(payload);
-		const url = `/tv/${payload.seriesId}/season/${payload.seasonNumber}/episode/${payload.episodeNumber}?language=en-US`;
-		const response = await fetcher(url);
-		// console.log(response);
+		console.log(payload);
+		// const url = `/tv/${payload.seriesId}/season/${payload.seasonNumber}/episode/${payload.episodeNumber}?language=en-US`;
+		const response = await fetcher(payload);
+		console.log(response);
 		dispatch(getEpisodeData(response));
 	} catch (error) {
 		console.error("Error fetching data:", error.message);
@@ -297,7 +296,7 @@ export const imagesData = (payload) => async (dispatch) => {
 		// console.log("Dispatching action with response:", response);
 	} catch (error) {
 		// console.log("Caught an error:", error);
-		console.error("Error fetching data:", error.message);
+		// console.error("Error fetching data:", error.message);
 	}
 };
 

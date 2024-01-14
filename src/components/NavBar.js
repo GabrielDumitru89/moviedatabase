@@ -45,7 +45,7 @@ const NavBar = () => {
 				</div>
 
 				<div className={styles.search}>
-					<div>
+					<div className={styles.input}>
 						<label htmlFor="search"></label>
 						<input
 							type="input"

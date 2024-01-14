@@ -52,7 +52,7 @@ const Card = ({ item, type, seriesId }) => {
 			>
 				<div className={styles.img}>
 					<img
-						src={`https://image.tmdb.org/t/p/w200/${item.poster_path}`}
+						src={`https://image.tmdb.org/t/p/w1280/${item.poster_path}`}
 						alt={item.name}
 					/>
 				</div>
@@ -81,7 +81,7 @@ const Card = ({ item, type, seriesId }) => {
 			>
 				<div className={styles.img}>
 					<img
-						src={`https://image.tmdb.org/t/p/w200/${item.still_path}`}
+						src={`https://image.tmdb.org/t/p/w500/${item.still_path}`}
 						alt={item.name}
 					/>
 				</div>
@@ -128,12 +128,6 @@ const Card = ({ item, type, seriesId }) => {
 			<div className={styles.year}>
 				<p>{item?.release_date || item?.first_air_date}</p>
 			</div>
-			{/* {type === "tv" && item?.seasons && (
-				<div>
-					<p>Episodes: {item.seasons[0]?.episode_count}</p>
-					<p>Air Date: {item.seasons[0]?.air_date}</p>
-				</div>
-			)} */}
 		</div>
 	);
 };

@@ -1,9 +1,15 @@
 .swiper {
 	max-width: 1300px;
-	width: 100%;
+	width: 90vw;
 	height: 100%;
 	margin-bottom: 40px;
 }
+
+// @media screen and (max-width: 460px){
+//   .swiper{
+//     width: 100vw;
+//   }
+// }
 
 .swiper-slide {
 	width: 240px;
@@ -16,7 +22,7 @@
 
 .swiper-wrapper{
   padding-bottom: 30px;
-  max-width: 1300px;
+  // max-width: 1300px;
 }
 
 .swiper-button-prev, .swiper-button-next {

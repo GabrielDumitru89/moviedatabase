@@ -2,11 +2,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
+
+
 
 .seriesHeader {
   position: relative;
-  width: auto;
+  width: 100%;
   // background-image: linear-gradient(to right, rgba(94.5, 136.5, 136.5, 1) calc((50vw - 170px) - 340px), rgba(94.5, 136.5, 136.5, 0.84) 50%, rgba(94.5, 136.5, 136.5, 0.84) 100%);
 }
 
@@ -68,6 +71,7 @@
   padding: 20px;
   color: #fff;
   max-width: 1300px;
+  overflow: hidden;
 }
 
 .seriesPoster {
@@ -93,49 +97,6 @@
   }
 }
 
-.videoContainer {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  white-space: nowrap;
-
-  h3 {
-    padding: 20px;
-  }
-
-  ::-webkit-scrollbar {
-    height: 10px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #888;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
-}
-
-.videos {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  div {
-    p {
-      cursor: pointer;
-    }
-  }
-}
-
-.videoWrapper {
-  display: flex;
-  flex-direction: column;
-  // iframe {
-  //   // width: 100%;
-  // }
-}
 
 .seriesCast {
   display: flex;
@@ -160,9 +121,14 @@
 }
 
 .movieImagesContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   position: relative;
   overflow: hidden;
-  width: 1300px;
+  width: 100%;
+  max-width: 1300px;
 }
 
 .movieImages {
@@ -190,5 +156,6 @@
     height: 100px;
     flex: 0 0 auto;
     padding: 5px;
+    cursor: pointer;
   }
 }

@@ -36,9 +36,16 @@
 }
 .img {
   display: flex;
-  height: px;
+  width: 200px;
+  img {
+    width: 200px;
+    // height: 300px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
 }
 .title {
+  width: 200px;
   display: flex;
   height: 70px;
 }
@@ -46,7 +53,6 @@
 .year {
   display: flex;
   flex-direction: row;
-  justify-content: center;
   align-items: center;
   align-content: center;
   flex-wrap: wrap;
@@ -87,3 +93,10 @@
   cursor: pointer;
 }
 
+.episodeCard{
+  display: flex;
+  /* justify-content: center; */
+  flex-direction: column;
+  /* align-content: center; */
+  align-items: center;
+}

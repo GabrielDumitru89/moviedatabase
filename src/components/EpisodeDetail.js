@@ -13,7 +13,8 @@ const EpisodeDetail = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		dispatch(oneEpisodeData({ seriesId, seasonNumber, episodeNumber }));
+		// dispatch(oneEpisodeData({ seriesId, seasonNumber, episodeNumber }));
+		dispatch(oneEpisodeData(`/tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}?language=en-US`));
 	}, [dispatch, seriesId, seasonNumber, episodeNumber]);
 
 	const { episodeData, episodeCredits } = useSelector((state) => state.app);
@@ -31,7 +32,7 @@ const EpisodeDetail = () => {
 				<div>
 					<div>
 						<img
-							src={`https://image.tmdb.org/t/p/w500${episodeData.still_path}`}
+							src={`https://image.tmdb.org/t/p/w1280${episodeData.still_path}`}
 							alt={episodeData.name}
 						/>
 					</div>

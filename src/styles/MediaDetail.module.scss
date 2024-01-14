@@ -1,30 +1,27 @@
-.movieDetailContainer {
+/* MediaDetail.module.scss */
+
+.mediaDetailContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
 }
 
-.movieHeader {
+.mediaHeader {
   position: relative;
   width: 100%;
-  // background-image: linear-gradient(to right, rgba(94.5, 136.5, 136.5, 1) calc((50vw - 170px) - 340px), rgba(94.5, 136.5, 136.5, 0.84) 50%, rgba(94.5, 136.5, 136.5, 0.84) 100%);
 }
 
-.movieBackdrop {
-  position: relative;
+.mediaBackdrop {
   width: 100%;
   height: 600px;
-  object-fit: contain;
+  object-fit: cover;
   object-position: top;
-  // transform: translateY(-50px);
   z-index: -1;
+
   &::before {
     content: '';
     position: absolute;
-    z-index: 1;
-    width: 100%;
-    height: 600px;
     top: 0;
     right: 0;
     bottom: 0;
@@ -38,18 +35,19 @@
   }
 }
 
-.movieImage {
+.mediaImage {
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: top;
+  border-radius: 12px;
 }
 
-.movieTitle {
-  bottom: 0;
+.mediaTitle {
   color: #fff;
+  margin-top: 0px;
 }
 
 .releaseAndGenres {
@@ -60,43 +58,32 @@
     margin-right: 10px;
   }
 }
-.movieInfo {
+
+.mediaInfo {
   position: absolute;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   margin-top: 20px;
   padding: 20px;
   color: #fff;
   max-width: 1300px;
+  width: 100%;
+  overflow: hidden;
 }
 
-.moviePoster {
+.mediaPoster {
   width: 200px;
   height: 300px;
   object-fit: cover;
   border-radius: 12px;
 }
 
-.movieDetails {
+.mediaDetails {
   margin-left: 20px;
   margin-right: 20px;
 }
-.movieCredits {
-  display: flex;
-  div {
-    padding: 10px;
-    width: 33%;
-  }
-}
 
-.movieCast{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.movieImagesContainer {
+.mediaImagesContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -107,12 +94,13 @@
   max-width: 1300px;
 }
 
-.movieImages {
+.mediaImages {
   display: flex;
   overflow-x: scroll;
   overflow-y: hidden;
   scrollbar-width: thin;
   scrollbar-color: rgba(155, 155, 155, 0.7) transparent;
+  scroll-snap-type: x mandatory;
   width: 100%;
   max-width: 1300px;
 
@@ -136,4 +124,12 @@
     padding: 5px;
     cursor: pointer;
   }
+}
+
+.mediaCast {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }

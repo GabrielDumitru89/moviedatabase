@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Modal from 'react-modal';
+import Modal from "react-modal";
 import { useSelector, useDispatch } from "react-redux";
 import { closeModal } from "../../slices/appSlices";
 
-Modal.setAppElement('#root');
+Modal.setAppElement("#root");
 
 const customStyles = {
 	content: {
@@ -29,11 +29,10 @@ const customStyles = {
 };
 
 const ModalComponent = () => {
-
 	const dispatch = useDispatch();
-	const open = useSelector((state) => (state.app.modal.isOpen));
-	console.log(open);
-	const video = useSelector((state) => state.app.modal.video);
+	const open = useSelector((state) => state.app.modal?.isOpen);
+	// console.log(open);
+	const video = useSelector((state) => state.app.modal?.video);
 	// console.log(video);
 
 	function closeModalFn() {

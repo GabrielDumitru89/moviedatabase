@@ -26,79 +26,59 @@ const Actor = () => {
 		dispatch(tvCreditsData1(id));
 	}, [dispatch, id]);
 
-	const credits1 = useSelector((state) => state.app.tvCreditsData.data.cast);
-	console.log(credits1);
+	const credits1 = useSelector((state) => state.app.tvCreditsData.data?.cast);
+	// console.log(credits1);
 
 	useEffect(() => {
 		dispatch(movieCreditsData1(id));
 	}, [dispatch, id]);
 
 	const credits = useSelector((state) => state.app.movieCreditsData.cast);
-	console.log(credits);
+	// console.log(credits);
 
 	const state = useSelector((state) => state.app);
 	// console.log(state);
-
-	// const [credits, setCredits] = useState([]);
-	// useEffect(() => {
-	// 	fetch(
-	// 		`${process.env.REACT_APP_BASE_URL}/person/${id}/combined_credits?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
-	// 	)
-	// 		.then((response) => response.json())
-	// 		.then((data) => {
-	// 			const creditsWithTypes = data.cast.map(credit => ({ ...credit, type: credit.media_type }));
-	// 			setCredits(creditsWithTypes);
-	// 		});
-	// }, [id]);
-
-	useEffect(() => {
-		const el = document.querySelector(`.${styles.movieCredits}`);
-		const handleWheel = (e) => {
-			if (e.deltaY > 0) el.scrollLeft += 100;
-			else el.scrollLeft -= 100;
-			e.preventDefault();
-		};
-		el.addEventListener("wheel", handleWheel, { passive: false });
-		return () => {
-			el.removeEventListener("wheel", handleWheel);
-		};
-	}, []);
 
 	useEffect(() => {
 		const el = document.querySelector(`.${styles.movieCredits}`);
 		let isDown = false;
 		let startX;
 		let scrollLeft;
-		const handleMouseDown = (e) => {
+
+		const mouseDownHandler = (e) => {
 			isDown = true;
 			startX = e.pageX - el.offsetLeft;
 			scrollLeft = el.scrollLeft;
 		};
-		const handleMouseLeave = () => {
+
+		const mouseLeaveHandler = () => {
 			isDown = false;
 		};
-		const handleMouseUp = () => {
+
+		const mouseUpHandler = () => {
 			isDown = false;
 		};
-		const handleMouseMove = (e) => {
+
+		const mouseMoveHandler = (e) => {
 			if (!isDown) return;
 			e.preventDefault();
 			const x = e.pageX - el.offsetLeft;
 			const walk = (x - startX) * 2;
 			el.scrollLeft = scrollLeft - walk;
 		};
-		el.addEventListener("mousedown", handleMouseDown);
-		el.addEventListener("mouseleave", handleMouseLeave);
-		el.addEventListener("mouseup", handleMouseUp);
-		el.addEventListener("mousemove", handleMouseMove);
+
+		el.addEventListener("mousedown", mouseDownHandler);
+		el.addEventListener("mouseleave", mouseLeaveHandler);
+		el.addEventListener("mouseup", mouseUpHandler);
+		el.addEventListener("mousemove", mouseMoveHandler);
+
 		return () => {
-			el.removeEventListener("mousedown", handleMouseDown);
-			el.removeEventListener("mouseleave", handleMouseLeave);
-			el.removeEventListener("mouseup", handleMouseUp);
-			el.removeEventListener("mousemove", handleMouseMove);
+			el.removeEventListener("mousedown", mouseDownHandler);
+			el.removeEventListener("mouseleave", mouseLeaveHandler);
+			el.removeEventListener("mouseup", mouseUpHandler);
+			el.removeEventListener("mousemove", mouseMoveHandler);
 		};
 	}, []);
-
 	// console.log(actor)
 	// console.log(useSelector(state => state))
 	// console.log(useSelector(state => state.app.oneActorData))
@@ -170,11 +150,6 @@ const Actor = () => {
 							<div>
 								<div className={styles.actorCredits}>
 									<h2>Movie Credits</h2>
-									{/* <div className={styles.movieCredits}>
-										{credits?.map((credit) => (
-											<Card key={credit.credit_id} item={credit} />
-										))}
-									</div> */}
 									<div className={styles.movieCredits}>
 										{[...(credits || []), ...(credits1 || [])]
 											?.filter((credit) => credit.vote_count >= 100)

@@ -3,12 +3,14 @@ import { useSelector, useDispatch } from "react-redux";
 import NavBar from "./NavBar";
 import { useParams } from "react-router-dom";
 import Template from "./utilsView/Template";
-import MovieDetail from "./MovieDetail";
+import MediaDetail from "./MediaDetail";
+// import MovieDetail from "./MovieDetail";
 import { tvCreditsData1 } from "../slices/appSlices";
 
 const Movie = () => {
 	// console.log('Rendering ParentComponent');
 	const { id } = useParams();
+	const { mediaType } = useParams();
 	// console.log('id:', id);
 	// console.log(id);
 	// const condition = null;
@@ -21,7 +23,7 @@ const Movie = () => {
 	// const movieCreditsData = useSelector(
 	// 	(state) => state.app.movieCreditsData
 	// );
-	const movieCreditsData = useSelector(
+	const movieCreditData = useSelector(
 		(state) => state.app.movieCreditsData.cast
 	);
 	// console.log(movieCreditsData);
@@ -31,7 +33,7 @@ const Movie = () => {
 		...(Array.isArray(searchData) ? searchData : []),
 		...(Array.isArray(topRatedM) ? topRatedM : []),
 		...(Array.isArray(bannerData) ? bannerData : []),
-		...(Array.isArray(movieCreditsData) ? movieCreditsData : []),
+		...(Array.isArray(movieCreditData) ? movieCreditData : []),
 	];
 
 	// console.log('MOvies', movies);
@@ -41,12 +43,17 @@ const Movie = () => {
 		return Number(item.id) === Number(id);
 	});
 	// console.log("datasinglemovie", dataSingleMovie);
+	// const mediaType = dataSingleMovie.title ? "movie" : "series";
+	
 
 	return (
 		<div>
 			<NavBar />
 			<Template>
-				{dataSingleMovie && <MovieDetail item={dataSingleMovie} />}
+				{/* {dataSingleMovie && <MovieDetail item={dataSingleMovie} />} */}
+				{dataSingleMovie && (
+					<MediaDetail item={dataSingleMovie} mediaType="movie" />
+				)}
 			</Template>
 		</div>
 	);

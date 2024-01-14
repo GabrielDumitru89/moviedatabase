@@ -1,7 +1,7 @@
 .Banner{
   display: flex;
   justify-content: center;
-  height: 600px;
+  max-height: 600px;
 }
 
 .bannerWrapper,
@@ -9,7 +9,7 @@
 	cursor: pointer;
 	display: flex;
 	width: 1300px;
-	height: 600px;
+	max-height: 600px;
 
 }
 

@@ -15,21 +15,22 @@ const SeasonDetail = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		dispatch(oneSeasonData({ seriesId, seasonNumber }));
+		dispatch(oneSeasonData(`/tv/${seriesId}/season/${seasonNumber}?language=en-US`));
 	}, [dispatch, seriesId, seasonNumber]);
 
 	// const seasonData = useSelector((state) => state.app.oneSeasonData);
 	const seasonData = useSelector((state) => state.app.seasonData.data);
-	// console.log(seasonData);
+	console.log(seasonData);
+
+	const posterUrl = seasonData?.poster_path
+		? `https://image.tmdb.org/t/p/w1280${seasonData.poster_path}`
+		: "default_image_url";
 
 	return (
 		<div>
 			<NavBar />
 			<div>
-				<img
-					src={`https://image.tmdb.org/t/p/w500${seasonData?.poster_path}`}
-					alt={seasonData?.name}
-				/>
+				<img src={posterUrl} alt={seasonData?.name} />
 			</div>
 			<div>
 				<h1>{seasonData?.name}</h1>
