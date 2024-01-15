@@ -250,10 +250,9 @@ export const oneSeasonData = (payload) => async (dispatch) => {
 
 export const oneEpisodeData = (payload) => async (dispatch) => {
 	try {
-		// console.log(payload);
-		// const url = `/tv/${payload.seriesId}/season/${payload.seasonNumber}/episode/${payload.episodeNumber}?language=en-US`;
+		// console.log("episode payload",payload);
 		const response = await fetcher(payload);
-		// console.log(response);
+		// console.log("episode response",response);
 		dispatch(getEpisodeData(response));
 	} catch (error) {
 		console.error("Error fetching data:", error.message);
@@ -262,10 +261,10 @@ export const oneEpisodeData = (payload) => async (dispatch) => {
 
 export const fetchEpisodeCredits = (payload) => async (dispatch) => {
   try {
-		// console.log(payload);
+		console.log("episodecreditspayload",payload);
     const response = await fetcher(payload);
     dispatch(getEpisodeCredits(response));
-		// console.log("Response from fetcher:", response);
+		console.log("episodecreditsresponse:", response);
   } catch (error) {
     console.error("Error fetching data:", error.message);
   }

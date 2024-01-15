@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../styles/MediaDetail.module.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -6,6 +6,7 @@ import { videosData, imagesData } from "../slices/appSlices";
 import * as basicLightbox from "basiclightbox";
 import "basiclightbox/dist/basicLightbox.min.css";
 import Row from "./Row";
+import ImageWithGradient from "./utilsFunctions/ImageWithGradient";
 
 const MediaDetail = ({ item, mediaType }) => {
 	const { id } = useParams();
@@ -124,8 +125,9 @@ const MediaDetail = ({ item, mediaType }) => {
 	const genres =
 		mediaDetails &&
 		(mediaDetails.genres?.length > 0 || mediaDetails.genre_ids?.length > 0)
-			? (mediaDetails.genres || []).map((genre) => genre.name).join(", ")
+			? (mediaDetails.genres || []).map((genre) => genre.name).join(" , ")
 			: "Genres not available";
+			// console.log("genres:",genres);
 
 	const runtime =
 		mediaDetails &&
@@ -190,9 +192,40 @@ const MediaDetail = ({ item, mediaType }) => {
 	const posterUrl = mediaDetails?.poster_path
 		? `https://image.tmdb.org/t/p/w200/${mediaDetails.poster_path}`
 		: "default_image_url";
-	const backdropUrl = mediaDetails?.backdrop_path
-		? `https://image.tmdb.org/t/p/w1280/${mediaDetails.backdrop_path}`
+
+	const backdrops = images?.backdrops || [];
+	// console.log("Backdrops:", backdrops);
+
+	const randomIndex = Math.floor(Math.random() * backdrops.length);
+	// console.log("Random Index:", randomIndex);
+
+	const backdropUrl = backdrops.length
+		? `https://image.tmdb.org/t/p/w1280/${backdrops[randomIndex].file_path}`
 		: "default_image_url";
+
+	// console.log("Backdrop URL:", backdropUrl);
+
+	// const ImageWithGradient = ({ backdropUrl }) => {
+	//   const [dominantColor, setDominantColor] = useState('');
+	//   const imageRef = useRef(null);
+
+	//   useEffect(() => {
+	//     const colorThief = new ColorThief();
+
+	//     const image = new Image();
+	//     image.crossOrigin = 'Anonymous'; // Enable CORS for the image
+	//     image.src = backdropUrl;
+
+	//     image.onload = () => {
+	//       const color = colorThief.getColor(image);
+	//       const rgbColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+	//       setDominantColor(rgbColor);
+	//     };
+	//   }, [backdropUrl]);
+
+	// const gradientStyle = {
+	//   backgroundImage: `linear-gradient(to bottom, ${dominantColor}, transparent)`,
+	// };
 
 	return (
 		<div className={styles.mediaDetailContainer}>
@@ -203,6 +236,7 @@ const MediaDetail = ({ item, mediaType }) => {
 						alt={mediaDetails?.title || mediaDetails?.original_name}
 						className={styles.mediaImage}
 					/>
+					{/* <ImageWithGradient backdropUrl={backdropUrl}  className={styles.mediaImage}/> */}
 				</div>
 			</div>
 
@@ -221,7 +255,7 @@ const MediaDetail = ({ item, mediaType }) => {
 					</h1>
 					<div className={styles.releaseAndGenres}>
 						{mediaDetails?.genres.map((genre, index) => (
-							<p key={index}>{genre.name}</p>
+							<p key={index}>{genre.name},</p>
 						))}
 					</div>
 

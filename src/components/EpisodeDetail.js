@@ -1,72 +1,73 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
-import { oneEpisodeData, imagesData } from "../slices/appSlices";
+import { oneEpisodeData, imagesData,fetchEpisodeCredits } from "../slices/appSlices";
 import { useEffect } from "react";
 import NavBar from "./NavBar";
 import Row from "./Row";
 import styles from "../styles/EpisodeDetail.module.scss";
 import * as basicLightbox from "basiclightbox";
 
-const EpisodeDetail = () => {
-	const { seriesId, seasonNumber, episodeNumber } = useParams();
-	const dispatch = useDispatch();
-	const navigate = useNavigate();
+	const EpisodeDetail = () => {
+		const { seriesId, seasonNumber, episodeNumber } = useParams();
+		const dispatch = useDispatch();
+	
+		useEffect(() => {
+			dispatch(
+				oneEpisodeData(
+					`/tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}?language=en-US`
+				)
+			);
+		}, [dispatch, seriesId, seasonNumber, episodeNumber]);
 
-	useEffect(() => {
-		// dispatch(oneEpisodeData({ seriesId, seasonNumber, episodeNumber }));
-		dispatch(
-			oneEpisodeData(
-				`/tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}?language=en-US`
-			)
-		);
-	}, [dispatch, seriesId, seasonNumber, episodeNumber]);
+		useEffect(() => {
+			dispatch(
+				imagesData(
+					`/tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}/images?language=en-US`
+				)
+			);
+		}, [dispatch, seriesId, seasonNumber, episodeNumber]);
 
-	const { episodeData, episodeCredits } = useSelector((state) => state.app);
-	// console.log(episodeData);
-	// console.log(episodeCredits);
-	console.log(useSelector((state) => state.app));
+		useEffect(() => {
+			dispatch( fetchEpisodeCredits(`/tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}/credits?language=en-US`));
+		}, [dispatch, seriesId, seasonNumber, episodeNumber]);
+	
+		const { episodeData, episodeCredits } = useSelector((state) => state.app);
+		const images = useSelector((state) => state.app.imageData?.data);
 
-	useEffect(() => {
-		dispatch(
-			imagesData(
-				`/tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}/images?language=en-US`
-			)
-		);
-	}, [dispatch, seriesId, seasonNumber, episodeNumber]);
-	const images = useSelector((state) => state.app.imageData?.data);
-	console.log(images);
+		// console.log("episodeData",episodeData?.data);
+		// console.log("episodeCredits",episodeCredits?.data);
 
-	const director = episodeData?.crew?.find(
+	const director = episodeData?.data?.crew?.find(
 		(member) => member.job === "Director"
 	);
-	const writer = episodeData?.crew?.find((member) => member.job === "Writer");
+	const writer = episodeData?.data?.crew?.find((member) => member.job === "Writer");
 
 	return (
 		<div>
 			<NavBar />
-			{episodeData && (
+			{episodeData?.data && (
 				<div>
 					<div>
 						<img
-							src={`https://image.tmdb.org/t/p/w1280${episodeData.still_path}`}
-							alt={episodeData.name}
+							src={`https://image.tmdb.org/t/p/w1280${episodeData?.data.still_path}`}
+							alt={episodeData?.data.name}
 						/>
 					</div>
 					<div>
 					<img
-							src={`https://image.tmdb.org/t/p/w200${episodeData.still_path}`}
-							alt={episodeData.name}
+							src={`https://image.tmdb.org/t/p/w200${episodeData?.data.still_path}`}
+							alt={episodeData?.data.name}
 						/>	
 					</div>
 					<div>
-						<h2>{episodeData.name}</h2>
+						<h2>{episodeData?.data.name}</h2>
 					</div>
 					<div>
-						<p>Overview: {episodeData.overview}</p>
+						<p>Overview: {episodeData?.data.overview}</p>
 					</div>
 					<div>
-						<p>Air Date: {episodeData.air_date}</p>
+						<p>Air Date: {episodeData?.data.air_date}</p>
 					</div>
 					<div>
 						{director && <p>Director: {director.name}</p>}
@@ -74,17 +75,17 @@ const EpisodeDetail = () => {
 					</div>
 					<div>
 						<p>
-							S {episodeData.season_number} E {episodeData.episode_number}
+							S {episodeData?.data.season_number} E {episodeData?.data.episode_number}
 						</p>
 					</div>
 					<div>
-						<p>Runtime: {episodeData.runtime}</p>
+						<p>Runtime: {episodeData?.data.runtime}</p>
 					</div>
 					<div>
-						<p>Rating {episodeData.vote_average}</p>
+						<p>Rating {episodeData?.data.vote_average}</p>
 					</div>
 					<div>
-						<p>Vote Count: {episodeData.vote_count}</p>
+						<p>Vote Count: {episodeData?.data.vote_count}</p>
 					</div>
 					<div className={styles.mediaImages}>
 					{images?.backdrops?.map((image, index) => (
@@ -105,7 +106,7 @@ const EpisodeDetail = () => {
 					))}
 				</div>
 					<div>
-						<Row items={episodeCredits?.cast} type="actor" />
+						<Row items={episodeCredits?.data.cast} type="actor" />
 					</div>
 				</div>
 			)}

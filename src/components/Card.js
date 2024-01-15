@@ -5,7 +5,7 @@ import styles from "../styles/Card.module.scss";
 const Card = ({ item, type, seriesId }) => {
 	const navigate = useNavigate();
 	// console.log(item);
-	console.log("Roles:", item?.roles);
+	// console.log("Roles:", item?.roles);
 	if (type === "actor") {
 		return (
 			<div
@@ -17,7 +17,7 @@ const Card = ({ item, type, seriesId }) => {
 						src={
 							item?.profile_path
 								? `https://image.tmdb.org/t/p/w200/${item.profile_path}`
-								: ""
+								: "/images/image-not-found.png"
 						}
 						alt={item?.name}
 					/>

@@ -94,7 +94,7 @@ const Actor = () => {
 								src={
 									actor?.profile_path
 										? `https://image.tmdb.org/t/p/w200/${actor.profile_path}`
-										: ""
+										: "/images/image-not-found.png"
 								}
 								alt={actor?.name}
 							/>

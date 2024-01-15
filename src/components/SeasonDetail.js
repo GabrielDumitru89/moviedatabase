@@ -20,7 +20,7 @@ const SeasonDetail = () => {
 
 	// const seasonData = useSelector((state) => state.app.oneSeasonData);
 	const seasonData = useSelector((state) => state.app.seasonData.data);
-	// console.log(seasonData);
+	console.log("season",seasonData);
 
 	const posterUrl = seasonData?.poster_path
 		? `https://image.tmdb.org/t/p/w1280${seasonData.poster_path}`
