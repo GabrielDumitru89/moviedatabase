@@ -106,7 +106,7 @@ import * as basicLightbox from "basiclightbox";
 					))}
 				</div>
 					<div>
-						<Row items={episodeCredits?.data.cast} type="actor" />
+						<Row items={episodeCredits?.data?.cast} type="actor" />
 					</div>
 				</div>
 			)}

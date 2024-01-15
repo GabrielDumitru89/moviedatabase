@@ -13,7 +13,6 @@ const MediaDetail = ({ item, mediaType }) => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	// const [details, setDetails] = useState(null);
 	const [cast, setCast] = useState([]);
 
 	useEffect(() => {
@@ -305,7 +304,6 @@ const MediaDetail = ({ item, mediaType }) => {
 						</p>
 					)}
 
-					{/* Additional sections based on your needs */}
 				</div>
 			</div>
 

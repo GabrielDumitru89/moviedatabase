@@ -4,7 +4,7 @@ import styles from "../styles/Card.module.scss";
 
 const Card = ({ item, type, seriesId }) => {
 	const navigate = useNavigate();
-	// console.log(item);
+	console.log(item);
 	// console.log("Roles:", item?.roles);
 	if (type === "actor") {
 		return (
@@ -32,7 +32,7 @@ const Card = ({ item, type, seriesId }) => {
 				) : (
 					item?.character && (
 						<div>
-							<p>{item.character}</p>
+							<p>Character:{item.character}</p>
 						</div>
 					)
 				)}
@@ -140,13 +140,13 @@ const Card = ({ item, type, seriesId }) => {
 				</p>
 			</div>
 			<div
-				className={`${styles.credits} ${
+				className={`${styles.credits}${
 					!item || (!item.character && !item.episode_count) ? styles.noData : ""
 				}`}
 			>
-				{item?.roles && (
+				{item?.character && (
 					<div>
-						<p>Character: {item.roles.character}</p>
+						<p>Character: {item.character}</p>
 					</div>
 				)}
 				{item.total_episode_count && (

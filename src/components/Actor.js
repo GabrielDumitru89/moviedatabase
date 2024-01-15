@@ -34,7 +34,7 @@ const Actor = () => {
 	}, [dispatch, id]);
 
 	const credits = useSelector((state) => state.app.movieCreditsData.cast);
-	// console.log(credits);
+	console.log(credits);
 
 	const state = useSelector((state) => state.app);
 	// console.log(state);
@@ -79,80 +79,72 @@ const Actor = () => {
 			el.removeEventListener("mousemove", mouseMoveHandler);
 		};
 	}, []);
-	// console.log(actor)
-	// console.log(useSelector(state => state))
-	// console.log(useSelector(state => state.app.oneActorData))
-	// console.log(useSelector(state => state.app))
+	// console.log(actor);
 
 	return (
 		<div>
 			<NavBar />
 			<Template>
 				<div className={styles.actorContainer}>
-						<div className={styles.imageContainer}>
-							<img
-								src={
-									actor?.profile_path
-										? `https://image.tmdb.org/t/p/w200/${actor.profile_path}`
-										: "/images/image-not-found.png"
-								}
-								alt={actor?.name}
-							/>
-							<div className={styles.personalInfo}>
-								<p>
-									<strong>Personal Info</strong>
-								</p>
-							</div>
-							<div className={styles.knownFor}>
-								<p>
-									<strong>Known for</strong>
-								</p>
-								<p>{actor?.known_for_department}</p>
-							</div>
-							{/* <div> */}
-								<p>
-									<strong>Birthday</strong>
-								</p>
-								<p>{actor?.birthday}</p>
-							{/* </div> */}
-							{/* <div> */}
-								<p>{actor?.place_of_birth}</p>
-							{/* </div> */}
-							<div className={styles.knownAs}>
-								<p>
-									<strong>Also Known As</strong>
-								</p>
-								{actor?.also_known_as.map((name, index) => (
-									<p key={index}>{name}</p>
-								))}
-							</div>
+					<div className={styles.imageContainer}>
+						<img
+							src={
+								actor?.profile_path
+									? `https://image.tmdb.org/t/p/w200/${actor.profile_path}`
+									: "/images/image-not-found.png"
+							}
+							alt={actor?.name}
+						/>
+						<div className={styles.personalInfo}>
+							<p>
+								<strong>Personal Info</strong>
+							</p>
 						</div>
+						<div className={styles.knownFor}>
+							<p>
+								<strong>Known for</strong>
+							</p>
+							<p>{actor?.known_for_department}</p>
+						</div>
+						<p>
+							<strong>Birthday</strong>
+						</p>
+						<p>{actor?.birthday}</p>
+						<p>{actor?.place_of_birth}</p>
+						<div className={styles.knownAs}>
+							<p>
+								<strong>Also Known As</strong>
+							</p>
+							{actor?.also_known_as.map((name, index) => (
+								<p key={index}>{name}</p>
+							))}
+						</div>
+					</div>
 
 					<div className={styles.actorDetails}>
-							<p><strong>{actor?.name}</strong></p>
+						<p>
+							<strong>{actor?.name}</strong>
+						</p>
 						<p>Popularity: {actor?.popularity}</p>
-						{/* <div> */}
-							<div className={styles.actorBiography}>
-								<p>
-									<strong>Biography:</strong>
-								</p>
-								{actor?.biography.split("\n\n").map((paragraph, index) => (
-									<p key={index}>{paragraph}</p>
-								))}
+						<div className={styles.actorBiography}>
+							<p>
+								<strong>Biography:</strong>
+							</p>
+							{actor?.biography.split("\n\n").map((paragraph, index) => (
+								<p key={index}>{paragraph}</p>
+							))}
+						</div>
+						<div className={styles.actorCredits}>
+							<h2>Movie Credits</h2>
+							<div className={styles.movieCredits}>
+								{[...(credits || []), ...(credits1 || [])]
+									?.filter((credit) => credit.vote_count >= 100)
+									.sort((a, b) => b.vote_average - a.vote_average)
+									.map((credit) => (
+										<Card key={credit.credit_id} item={credit} />
+									))}
 							</div>
-							{/* <div> */}
-								<div className={styles.actorCredits}>
-									<h2>Movie Credits</h2>
-									<div className={styles.movieCredits}>
-										{[...(credits || []), ...(credits1 || [])]
-											?.filter((credit) => credit.vote_count >= 100)
-											.sort((a, b) => b.vote_average - a.vote_average)
-											.map((credit) => (
-												<Card key={credit.credit_id} item={credit} />
-											))}
-									</div>
-								</div>
-						{/* </div> */}
+						</div>
 					</div>
 				</div>
 			</Template>
