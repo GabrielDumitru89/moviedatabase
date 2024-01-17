@@ -1,11 +1,14 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
-import { oneSeasonData } from "../slices/appSlices";
+import { oneSeasonData, seasonImagesData } from "../slices/appSlices";
 import { useEffect } from "react";
 import Row from "./Row";
 import NavBar from "./NavBar";
 import styles from "../styles/SeasonDetail.module.scss";
+import * as basicLightbox from "basiclightbox";
+import "basiclightbox/dist/basicLightbox.min.css";
+import MouseDrag from "./utilsFunctions/MouseDrag";
 
 const SeasonDetail = () => {
 	const { seriesId, seasonNumber } = useParams();
@@ -20,7 +23,16 @@ const SeasonDetail = () => {
 
 	// const seasonData = useSelector((state) => state.app.oneSeasonData);
 	const seasonData = useSelector((state) => state.app.seasonData.data);
-	console.log("season",seasonData);
+	// console.log("season",seasonData);
+
+	useEffect(() => {
+		dispatch(seasonImagesData(`/tv/${seriesId}/season/${seasonNumber}/images`));
+	}, [dispatch, seriesId, seasonNumber]);
+
+	const seasonImages = useSelector(
+		(state) => state.app.seasonImage?.data?.posters
+	);
+	// console.log("seasonImages", seasonImages);
 
 	const posterUrl = seasonData?.poster_path
 		? `https://image.tmdb.org/t/p/w1280${seasonData.poster_path}`
@@ -44,16 +56,53 @@ const SeasonDetail = () => {
 						alt={seasonData?.name}
 					/>
 					<div className={styles.seasonDetails}>
-						<h1 className={styles.seasonTitle}>{seasonData?.name}</h1>
+						<p className={styles.seasonTitle}>
+							<strong>{seasonData?.name}</strong>
+						</p>
 						<div className={styles.releaseAndGenres}>
-							<p>Air Date: {seasonData?.air_date}</p>
+							<p>
+								<strong>Air Date: </strong>
+								{seasonData?.air_date}
+							</p>
+							<p>
+								<strong>Rating: </strong> {seasonData?.vote_average}
+							</p>
 						</div>
 						<p className={styles.overview}>{seasonData?.overview}</p>
 					</div>
 				</div>
 			</div>
+			<div className={styles.seasonImagesContainer}>
+				<div>
+					<p>
+						<strong>Images</strong>
+					</p>
+				</div>
+				<div className={styles.seasonImages}>
+					<MouseDrag elementClass={styles.seasonImages} />
+					{seasonImages &&
+						seasonImages.map((image, index) => (
+							<div
+								key={index}
+								onClick={() => {
+									const instance = basicLightbox.create(`
+            <img src="https://image.tmdb.org/t/p/original${image.file_path}" width="800" height="600">
+          `);
+									instance.show();
+								}}
+							>
+								<img
+									src={`https://image.tmdb.org/t/p/original${image.file_path.trim()}`}
+									alt=""
+								/>
+							</div>
+						))}
+				</div>
+			</div>
 			<div className={styles.episodes}>
-				<p><strong>Episodes</strong></p>
+				<p>
+					<strong>Episodes</strong>
+				</p>
 				<Row items={seasonData?.episodes} type="episode" seriesId={seriesId} />
 			</div>
 		</div>

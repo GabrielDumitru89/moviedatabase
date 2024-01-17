@@ -16,8 +16,8 @@
 .seasonHeader {
   position: relative;
   width: 100%;
-  height: 400px;
-  max-height: 600px;
+  height: 600px;
+  // max-height: 600px;
   margin-bottom: 20px;
   &::before {
     content: '';
@@ -38,8 +38,8 @@
 .seasonBackdrop {
   position: relative;
   width: 100%;
-  height: 400px;
-  max-height: 600px;
+  height: 600px;
+  // max-height: 600px;
   object-fit: cover;
   object-position: 50% 15%;
   z-index: -1;
@@ -62,14 +62,19 @@
 .seasonTitle {
   color: #fff;
   margin-top: 0px;
+  font-size: 32px;
+  @media screen and (max-width: 768px) {
+    font-size: 20px;
+    
+  }
 }
 
 .releaseAndGenres {
   display: flex;
   justify-content: flex-start;
+  flex-direction: column;
 
   p {
-    margin-right: 10px;
   }
 }
 
@@ -91,6 +96,12 @@
     align-items: center;
     width: 95%;
     padding: 0px;
+    p{
+      margin: 0px;
+    }
+    h1{
+      margin: 0px;
+    }
   }
 }
 
@@ -117,4 +128,56 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.seasonImagesContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 1300px;
+  @media screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 90%;
+    // padding: 10px;
+    
+  }
+}
+
+.seasonImages {
+  display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(155, 155, 155, 0.7) transparent;
+  scroll-snap-type: x mandatory;
+  width: 100%;
+  max-width: 1300px;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(155, 155, 155, 0.7);
+    border-radius: 20px;
+    border: transparent;
+  }
+
+  img {
+    height: 100px;
+    flex: 0 0 auto;
+    padding: 5px;
+    cursor: pointer;
+  }
 }

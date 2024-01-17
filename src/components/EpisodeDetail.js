@@ -1,94 +1,115 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
-import { oneEpisodeData, imagesData,fetchEpisodeCredits } from "../slices/appSlices";
+import {
+	oneEpisodeData,
+	episodeImagesData,
+	fetchEpisodeCredits,
+} from "../slices/appSlices";
 import { useEffect } from "react";
 import NavBar from "./NavBar";
 import Row from "./Row";
 import styles from "../styles/EpisodeDetail.module.scss";
 import * as basicLightbox from "basiclightbox";
+import MouseDrag from "./utilsFunctions/MouseDrag";
 
-	const EpisodeDetail = () => {
-		const { seriesId, seasonNumber, episodeNumber } = useParams();
-		const dispatch = useDispatch();
-	
-		useEffect(() => {
-			dispatch(
-				oneEpisodeData(
-					`/tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}?language=en-US`
-				)
-			);
-		}, [dispatch, seriesId, seasonNumber, episodeNumber]);
+const EpisodeDetail = () => {
+	const { seriesId, seasonNumber, episodeNumber } = useParams();
+	const dispatch = useDispatch();
 
-		useEffect(() => {
-			dispatch(
-				imagesData(
-					`/tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}/images?language=en-US`
-				)
-			);
-		}, [dispatch, seriesId, seasonNumber, episodeNumber]);
+	useEffect(() => {
+		dispatch(
+			oneEpisodeData(
+				`/tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}?language=en-US`
+			)
+		);
+	}, [dispatch, seriesId, seasonNumber, episodeNumber]);
 
-		useEffect(() => {
-			dispatch( fetchEpisodeCredits(`/tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}/credits?language=en-US`));
-		}, [dispatch, seriesId, seasonNumber, episodeNumber]);
-	
-		const { episodeData, episodeCredits } = useSelector((state) => state.app);
-		const images = useSelector((state) => state.app.imageData?.data);
+	useEffect(() => {
+		dispatch(
+			episodeImagesData(
+				`/tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}/images`
+			)
+		);
+	}, [dispatch, seriesId, seasonNumber, episodeNumber]);
 
-		// console.log("episodeData",episodeData?.data);
-		// console.log("episodeCredits",episodeCredits?.data);
+	const episodeImages = useSelector(
+		(state) => state.app.episodeImage?.data?.stills
+	);
+	// console.log("episodeImages", episodeImages);
+
+	useEffect(() => {
+		dispatch(
+			fetchEpisodeCredits(
+				`/tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}/credits?language=en-US`
+			)
+		);
+	}, [dispatch, seriesId, seasonNumber, episodeNumber]);
+
+	const { episodeData, episodeCredits } = useSelector((state) => state.app);
+
+	// console.log("episodeData", episodeData?.data);
+	// console.log("episodeCredits",episodeCredits?.data);
 
 	const director = episodeData?.data?.crew?.find(
 		(member) => member.job === "Director"
 	);
-	const writer = episodeData?.data?.crew?.find((member) => member.job === "Writer");
+	const writer = episodeData?.data?.crew?.find(
+		(member) => member.job === "Writer"
+	);
 
 	return (
-		<div>
+		<div className={styles.episodeDetailContainer}>
 			<NavBar />
-			{episodeData?.data && (
-				<div>
-					<div>
-						<img
-							src={`https://image.tmdb.org/t/p/w1280${episodeData?.data.still_path}`}
-							alt={episodeData?.data.name}
-						/>
-					</div>
-					<div>
+			{/* {episodeData?.data && ( */}
+			<div className={styles.episodeHeader}>
+				<img
+					className={styles.episodeBackdrop}
+					src={`https://image.tmdb.org/t/p/w1280${episodeData?.data.still_path}`}
+					alt={episodeData?.data.name}
+				/>
+				<div className={styles.episodeInfo}>
 					<img
-							src={`https://image.tmdb.org/t/p/w200${episodeData?.data.still_path}`}
-							alt={episodeData?.data.name}
-						/>	
-					</div>
-					<div>
-						<h2>{episodeData?.data.name}</h2>
-					</div>
-					<div>
-						<p>Overview: {episodeData?.data.overview}</p>
-					</div>
-					<div>
-						<p>Air Date: {episodeData?.data.air_date}</p>
-					</div>
-					<div>
-						{director && <p>Director: {director.name}</p>}
-						{writer && <p>Writer: {writer.name}</p>}
-					</div>
-					<div>
-						<p>
-							S {episodeData?.data.season_number} E {episodeData?.data.episode_number}
+						className={styles.episodePoster}
+						src={`https://image.tmdb.org/t/p/w200${episodeData?.data.still_path}`}
+						alt={episodeData?.data.name}
+					/>
+					<div className={styles.episodeDetails}>
+						<p className={styles.episodeTitle}>
+							<strong>{episodeData?.data.name}</strong>
 						</p>
+						<p>
+							S {episodeData?.data.season_number} E{" "}
+							{episodeData?.data.episode_number}
+						</p>
+						<p>
+							<strong>Air Date:</strong> {episodeData?.data.air_date}
+						</p>
+						<p>
+							<strong>Runtime: </strong>
+							{episodeData?.data.runtime}
+						</p>
+						<p>
+							<strong>Rating: </strong>
+							{episodeData?.data.vote_average}
+						</p>
+						<p className={styles.overview}>{episodeData?.data.overview}</p>
+						<div className={styles.director}>
+							{director && <p>Director: {director.name}</p>}
+							{writer && <p>Writer: {writer.name}</p>}
+						</div>
 					</div>
-					<div>
-						<p>Runtime: {episodeData?.data.runtime}</p>
-					</div>
-					<div>
-						<p>Rating {episodeData?.data.vote_average}</p>
-					</div>
-					<div>
-						<p>Vote Count: {episodeData?.data.vote_count}</p>
-					</div>
-					<div className={styles.mediaImages}>
-					{images?.backdrops?.map((image, index) => (
+				</div>
+			</div>
+			<div className={styles.episodeImagesContainer}>
+				<div>
+					<p>
+						<strong>Images</strong>
+					</p>
+				</div>
+				<div className={styles.episodeImages}>
+					<MouseDrag elementClass={styles.episodeImages} />
+					{episodeImages?.map((image, index) => (
 						<div
 							key={index}
 							onClick={() => {
@@ -105,11 +126,12 @@ import * as basicLightbox from "basiclightbox";
 						</div>
 					))}
 				</div>
-					<div>
-						<Row items={episodeCredits?.data?.cast} type="actor" />
-					</div>
-				</div>
-			)}
+			</div>
+
+			<div>
+				<Row items={episodeCredits?.data?.cast} type="actor" />
+			</div>
+			{/* )} */}
 		</div>
 	);
 };

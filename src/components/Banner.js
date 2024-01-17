@@ -58,6 +58,7 @@ const Banner = () => {
 									</div>
 								)}
 								<div className={styles.carouselTitle}>
+									
 									<h1>{item.title}</h1>
 									<p>{item.overview}</p>
 									{/* {banner1Data?.genres.map((genre, index) => (

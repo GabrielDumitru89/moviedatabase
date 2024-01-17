@@ -7,6 +7,7 @@ import * as basicLightbox from "basiclightbox";
 import "basiclightbox/dist/basicLightbox.min.css";
 import Row from "./Row";
 import ImageWithGradient from "./utilsFunctions/ImageWithGradient";
+import MouseDrag from "./utilsFunctions/MouseDrag";
 
 const MediaDetail = ({ item, mediaType }) => {
 	const { id } = useParams();
@@ -126,7 +127,7 @@ const MediaDetail = ({ item, mediaType }) => {
 		(mediaDetails.genres?.length > 0 || mediaDetails.genre_ids?.length > 0)
 			? (mediaDetails.genres || []).map((genre) => genre.name).join(" , ")
 			: "Genres not available";
-			// console.log("genres:",genres);
+	// console.log("genres:",genres);
 
 	const runtime =
 		mediaDetails &&
@@ -147,47 +148,6 @@ const MediaDetail = ({ item, mediaType }) => {
 	// console.log("item:", item);
 	// console.log("mediaType:", mediaType);
 
-	useEffect(() => {
-		const el = document.querySelector(`.${styles.mediaImages}`);
-		let isDown = false;
-		let startX;
-		let scrollLeft;
-
-		const mouseDownHandler = (e) => {
-			isDown = true;
-			startX = e.pageX - el.offsetLeft;
-			scrollLeft = el.scrollLeft;
-		};
-
-		const mouseLeaveHandler = () => {
-			isDown = false;
-		};
-
-		const mouseUpHandler = () => {
-			isDown = false;
-		};
-
-		const mouseMoveHandler = (e) => {
-			if (!isDown) return;
-			e.preventDefault();
-			const x = e.pageX - el.offsetLeft;
-			const walk = (x - startX) * 3; //scroll-fast
-			el.scrollLeft = scrollLeft - walk;
-		};
-
-		el.addEventListener("mousedown", mouseDownHandler);
-		el.addEventListener("mouseleave", mouseLeaveHandler);
-		el.addEventListener("mouseup", mouseUpHandler);
-		el.addEventListener("mousemove", mouseMoveHandler);
-
-		return () => {
-			el.removeEventListener("mousedown", mouseDownHandler);
-			el.removeEventListener("mouseleave", mouseLeaveHandler);
-			el.removeEventListener("mouseup", mouseUpHandler);
-			el.removeEventListener("mousemove", mouseMoveHandler);
-		};
-	}, []);
-
 	const posterUrl = mediaDetails?.poster_path
 		? `https://image.tmdb.org/t/p/w200/${mediaDetails.poster_path}`
 		: "default_image_url";
@@ -199,7 +159,7 @@ const MediaDetail = ({ item, mediaType }) => {
 	// console.log("Random Index:", randomIndex);
 
 	const backdropUrl = backdrops.length
-		? `https://image.tmdb.org/t/p/w1280/${backdrops[randomIndex].file_path}`
+		? `https://image.tmdb.org/t/p/original/${backdrops[randomIndex].file_path}`
 		: "default_image_url";
 
 	// console.log("Backdrop URL:", backdropUrl);
@@ -303,7 +263,6 @@ const MediaDetail = ({ item, mediaType }) => {
 							{mediaDetails?.episode_run_time[0]} minutes per episode
 						</p>
 					)}
-
 				</div>
 			</div>
 
@@ -314,22 +273,25 @@ const MediaDetail = ({ item, mediaType }) => {
 					</p>
 				</div>
 				<div className={styles.mediaImages}>
-					{images?.backdrops?.map((image, index) => (
-						<div
-							key={index}
-							onClick={() => {
-								const instance = basicLightbox.create(`
-            <img src="https://image.tmdb.org/t/p/w1280${image.file_path}" width="800" height="600">
+				<MouseDrag elementClass={styles.mediaImages} />
+					{images &&
+						images.backdrops &&
+						images.backdrops.map((image, index) => (
+							<div
+								key={index}
+								onClick={() => {
+									const instance = basicLightbox.create(`
+            <img src="https://image.tmdb.org/t/p/original${image.file_path}" width="800" height="600">
           `);
-								instance.show();
-							}}
-						>
-							<img
-								src={`https://image.tmdb.org/t/p/w1280${image.file_path}`}
-								alt=""
-							/>
-						</div>
-					))}
+									instance.show();
+								}}
+							>
+								<img
+									src={`https://image.tmdb.org/t/p/original${image.file_path.trim()}`}
+									alt=""
+								/>
+							</div>
+						))}
 				</div>
 			</div>
 

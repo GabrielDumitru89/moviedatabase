@@ -3,14 +3,18 @@ import NavBar from "./NavBar";
 import Template from "./utilsView/Template";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { oneActorData, tvCreditsData1 } from "../slices/appSlices";
-import { useEffect, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
-import { movieCreditsData1 } from "../slices/appSlices";
-import "swiper/swiper-bundle.css";
+import {
+	oneActorData,
+	tvCreditsData1,
+	movieCreditsData1,
+	actorImagesData,
+} from "../slices/appSlices";
+import { useEffect } from "react";
 import Card from "./Card";
 import styles from "../styles/Actor.module.scss";
+import * as basicLightbox from "basiclightbox";
+import "basiclightbox/dist/basicLightbox.min.css";
+import MouseDrag from "./utilsFunctions/MouseDrag";
 
 const Actor = () => {
 	const { id } = useParams();
@@ -26,59 +30,24 @@ const Actor = () => {
 		dispatch(tvCreditsData1(id));
 	}, [dispatch, id]);
 
-	const credits1 = useSelector((state) => state.app.tvCreditsData.data?.cast);
-	// console.log(credits1);
+	const tvCredits = useSelector((state) => state.app.tvCreditsData.data?.cast);
+	// console.log(tvCredits);
 
 	useEffect(() => {
 		dispatch(movieCreditsData1(id));
 	}, [dispatch, id]);
 
 	const credits = useSelector((state) => state.app.movieCreditsData.cast);
-	console.log(credits);
-
-	const state = useSelector((state) => state.app);
-	// console.log(state);
+	// console.log(credits);
 
 	useEffect(() => {
-		const el = document.querySelector(`.${styles.movieCredits}`);
-		let isDown = false;
-		let startX;
-		let scrollLeft;
+		dispatch(actorImagesData(`/person/${id}/images?language=en-US`));
+	}, [dispatch, id]);
 
-		const mouseDownHandler = (e) => {
-			isDown = true;
-			startX = e.pageX - el.offsetLeft;
-			scrollLeft = el.scrollLeft;
-		};
-
-		const mouseLeaveHandler = () => {
-			isDown = false;
-		};
-
-		const mouseUpHandler = () => {
-			isDown = false;
-		};
-
-		const mouseMoveHandler = (e) => {
-			if (!isDown) return;
-			e.preventDefault();
-			const x = e.pageX - el.offsetLeft;
-			const walk = (x - startX) * 2;
-			el.scrollLeft = scrollLeft - walk;
-		};
-
-		el.addEventListener("mousedown", mouseDownHandler);
-		el.addEventListener("mouseleave", mouseLeaveHandler);
-		el.addEventListener("mouseup", mouseUpHandler);
-		el.addEventListener("mousemove", mouseMoveHandler);
-
-		return () => {
-			el.removeEventListener("mousedown", mouseDownHandler);
-			el.removeEventListener("mouseleave", mouseLeaveHandler);
-			el.removeEventListener("mouseup", mouseUpHandler);
-			el.removeEventListener("mousemove", mouseMoveHandler);
-		};
-	}, []);
+	const actorImages = useSelector(
+		(state) => state.app.actorImage?.data?.profiles
+	);
+	// console.log(actorImages);
 	// console.log(actor);
 
 	return (
@@ -134,10 +103,38 @@ const Actor = () => {
 								<p key={index}>{paragraph}</p>
 							))}
 						</div>
+						<div className={styles.actorImagesContainer}>
+							<div>
+								<p>
+									<strong>Images</strong>
+								</p>
+							</div>
+							<div className={styles.actorImages}>
+								<MouseDrag elementClass={styles.actorImages} />
+								{actorImages &&
+									actorImages.map((image, index) => (
+										<div
+											key={index}
+											onClick={() => {
+												const instance = basicLightbox.create(`
+													<img src="https://image.tmdb.org/t/p/original${image.file_path}" width="800" height="600">
+													`);
+												instance.show();
+											}}
+										>
+											<img
+												src={`https://image.tmdb.org/t/p/original${image.file_path.trim()}`}
+												alt=""
+											/>
+										</div>
+									))}
+							</div>
+						</div>
 						<div className={styles.actorCredits}>
 							<h2>Movie Credits</h2>
 							<div className={styles.movieCredits}>
-								{[...(credits || []), ...(credits1 || [])]
+								<MouseDrag elementClass={styles.movieCredits} />
+								{[...(credits || []), ...(tvCredits || [])]
 									?.filter((credit) => credit.vote_count >= 100)
 									.sort((a, b) => b.vote_average - a.vote_average)
 									.map((credit) => (

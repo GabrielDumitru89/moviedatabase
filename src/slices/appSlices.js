@@ -40,13 +40,13 @@ const initialState = {
 		data: null,
 	},
 	episodeData: {
-    data: null,
-    loading: true,
-  },
-  episodeCredits: {
-    data: null,
-    loading: true,
-  },
+		data: null,
+		loading: true,
+	},
+	episodeCredits: {
+		data: null,
+		loading: true,
+	},
 	tvCreditsData: {
 		data: null,
 	},
@@ -54,6 +54,15 @@ const initialState = {
 		data: null,
 	},
 	imageData: {
+		data: null,
+	},
+	actorImage: {
+		data: null,
+	},
+	seasonImage: {
+		data: null,
+	},
+	episodeImage: {
 		data: null,
 	},
 };
@@ -117,6 +126,20 @@ export const appSlice = createSlice({
 		getImageData: (state, action) => {
 			state.imageData.data = action.payload;
 		},
+		getActorImageData: (state, action) => {
+			state.actorImage.data = action.payload;
+		},
+		getSeasonImageData: (state, action) => {
+			state.seasonImage.data = action.payload;
+		},
+		// getSeasonImageData: (state, action) => {
+		// 	state.seasonImage = state.seasonImage ?? {};
+		// 	state.seasonImage.data = action.payload;
+		// },
+		getEpisodeImageData: (state, action) => {
+			state.episodeImage = state.episodeImage ?? {};
+			state.episodeImage.data = action.payload;
+		},
 	},
 });
 
@@ -139,6 +162,9 @@ export const {
 	openModal,
 	closeModal,
 	getImageData,
+	getActorImageData,
+	getSeasonImageData,
+	getEpisodeImageData,
 } = appSlice.actions;
 
 export const navData = (payload) => async (dispatch) => {
@@ -260,14 +286,14 @@ export const oneEpisodeData = (payload) => async (dispatch) => {
 };
 
 export const fetchEpisodeCredits = (payload) => async (dispatch) => {
-  try {
-		console.log("episodecreditspayload",payload);
-    const response = await fetcher(payload);
-    dispatch(getEpisodeCredits(response));
-		console.log("episodecreditsresponse:", response);
-  } catch (error) {
-    console.error("Error fetching data:", error.message);
-  }
+	try {
+		// console.log("episodecreditspayload", payload);
+		const response = await fetcher(payload);
+		dispatch(getEpisodeCredits(response));
+		// console.log("episodecreditsresponse:", response);
+	} catch (error) {
+		console.error("Error fetching data:", error.message);
+	}
 };
 
 export const tvCreditsData1 = (payload) => async (dispatch) => {
@@ -306,10 +332,49 @@ export const imagesData = (payload) => async (dispatch) => {
 		const response = await fetcher(payload);
 		// console.log("Response from fetcher:", response);
 		dispatch(getImageData(response));
+		console.log("Dispatching action with response:", response);
+	} catch (error) {
+		console.log("Caught an error:", error);
+		// console.error("Error fetching data:", error.message);
+	}
+};
+
+export const actorImagesData = (payload) => async (dispatch) => {
+	try {
+		// console.log(payload);
+		const response = await fetcher(payload);
+		// console.log("Response", response);
+		dispatch(getActorImageData(response));
 		// console.log("Dispatching action with response:", response);
 	} catch (error) {
 		// console.log("Caught an error:", error);
 		// console.error("Error fetching data:", error.message);
+	}
+};
+
+export const seasonImagesData = (payload) => async (dispatch) => {
+	try {
+		// console.log(payload);
+		const response = await fetcher(payload);
+		// console.log("Response from fetcher:", response);
+		dispatch(getSeasonImageData(response));
+		// console.log("Dispatching action with response:", response);
+	} catch (error) {
+		// console.log("Caught an error:", error);
+		console.error("Error fetching data:", error.message);
+	}
+};
+
+export const episodeImagesData = (payload) => async (dispatch) => {
+	try {
+		// console.log(payload);
+		const response = await fetcher(payload);
+		// console.log("Response from fetcher:", response);
+		dispatch(getEpisodeImageData(response));
+		// console.log("Dispatching action with response:", response);
+	} catch (error) {
+		// console.log("Caught an error:", error);
+		console.error("Error fetching data:", error.message);
 	}
 };
 
