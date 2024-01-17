@@ -47,7 +47,6 @@ const Movie = () => {
 		<div>
 			<NavBar />
 			<Template>
-				{/* {dataSingleMovie && <MovieDetail item={dataSingleMovie} />} */}
 				{dataSingleMovie && (
 					<MediaDetail item={dataSingleMovie} mediaType="movie" />
 				)}

@@ -35,7 +35,6 @@ const SingleSeries = () => {
 		<div>
 			<NavBar />
 			<Template>
-				{/* {dataSingleSeries && <SeriesDetail item={dataSingleSeries} />} */}
 				{dataSingleSeries && <MediaDetail item={dataSingleSeries} mediaType="tv"/>}
 			</Template>
 		</div>
