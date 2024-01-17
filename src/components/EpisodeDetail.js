@@ -65,35 +65,35 @@ const EpisodeDetail = () => {
 			<div className={styles.episodeHeader}>
 				<img
 					className={styles.episodeBackdrop}
-					src={`https://image.tmdb.org/t/p/w1280${episodeData?.data.still_path}`}
-					alt={episodeData?.data.name}
+					src={`https://image.tmdb.org/t/p/w1280${episodeData?.data?.still_path}`}
+					alt={episodeData?.data?.name}
 				/>
 				<div className={styles.episodeInfo}>
 					<img
 						className={styles.episodePoster}
-						src={`https://image.tmdb.org/t/p/w200${episodeData?.data.still_path}`}
-						alt={episodeData?.data.name}
+						src={`https://image.tmdb.org/t/p/w500${episodeData?.data?.still_path}`}
+						alt={episodeData?.data?.name}
 					/>
 					<div className={styles.episodeDetails}>
 						<p className={styles.episodeTitle}>
-							<strong>{episodeData?.data.name}</strong>
+							<strong>{episodeData?.data?.name}</strong>
 						</p>
 						<p>
-							S {episodeData?.data.season_number} E{" "}
-							{episodeData?.data.episode_number}
+							S {episodeData?.data?.season_number} E{" "}
+							{episodeData?.data?.episode_number}
 						</p>
 						<p>
-							<strong>Air Date:</strong> {episodeData?.data.air_date}
+							<strong>Air Date:</strong> {episodeData?.data?.air_date}
 						</p>
 						<p>
 							<strong>Runtime: </strong>
-							{episodeData?.data.runtime}
+							{episodeData?.data?.runtime}
 						</p>
 						<p>
 							<strong>Rating: </strong>
-							{episodeData?.data.vote_average}
+							{episodeData?.data?.vote_average}
 						</p>
-						<p className={styles.overview}>{episodeData?.data.overview}</p>
+						<p className={styles.overview}>{episodeData?.data?.overview}</p>
 						<div className={styles.director}>
 							{director && <p>Director: {director.name}</p>}
 							{writer && <p>Writer: {writer.name}</p>}

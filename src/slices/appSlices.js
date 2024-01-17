@@ -65,6 +65,12 @@ const initialState = {
 	episodeImage: {
 		data: null,
 	},
+	seasonTrailers: {
+		data: null,
+	},
+	episodeTrailers: {
+		data: null,
+	},
 };
 
 export const appSlice = createSlice({
@@ -140,6 +146,14 @@ export const appSlice = createSlice({
 			state.episodeImage = state.episodeImage ?? {};
 			state.episodeImage.data = action.payload;
 		},
+		getSeasonTrailer: (state, action) => {
+			state.seasonTrailers = state.seasonTrailers ?? {};
+			state.seasonTrailers.data = action.payload;
+		},
+		getEpisodeTrailer: (state, action) => {
+			state.episodeTrailers = state.episodeTrailers ?? {};
+			state.episodeTrailers.data = action.payload;
+		},
 	},
 });
 
@@ -165,6 +179,8 @@ export const {
 	getActorImageData,
 	getSeasonImageData,
 	getEpisodeImageData,
+	getSeasonTrailer,
+	getEpisodeTrailer,
 } = appSlice.actions;
 
 export const navData = (payload) => async (dispatch) => {
@@ -371,6 +387,32 @@ export const episodeImagesData = (payload) => async (dispatch) => {
 		const response = await fetcher(payload);
 		// console.log("Response from fetcher:", response);
 		dispatch(getEpisodeImageData(response));
+		// console.log("Dispatching action with response:", response);
+	} catch (error) {
+		// console.log("Caught an error:", error);
+		console.error("Error fetching data:", error.message);
+	}
+};
+
+export const seasonTrailersData = (payload) => async (dispatch) => {
+	try {
+		// console.log(payload);
+		const response = await fetcher(payload);
+		// console.log("Response from fetcher:", response);
+		dispatch(getSeasonTrailer(response));
+		// console.log("Dispatching action with response:", response);
+	} catch (error) {
+		// console.log("Caught an error:", error);
+		console.error("Error fetching data:", error.message);
+	}
+};
+
+export const episodeTrailersData = (payload) => async (dispatch) => {
+	try {
+		// console.log(payload);
+		const response = await fetcher(payload);
+		// console.log("Response from fetcher:", response);
+		dispatch(getEpisodeTrailer(response));
 		// console.log("Dispatching action with response:", response);
 	} catch (error) {
 		// console.log("Caught an error:", error);
