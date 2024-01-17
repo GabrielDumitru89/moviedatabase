@@ -82,6 +82,7 @@ const MediaDetail = ({ item, mediaType }) => {
 
 		fetchMediaDetails();
 	}, [mediaType, id]);
+	// console.log("Media Details:", mediaDetails);
 
 	useEffect(() => {
 		const fetchCredits = async () => {
@@ -121,6 +122,7 @@ const MediaDetail = ({ item, mediaType }) => {
 			: mediaType === "tv" && item?.first_air_date
 			? new Date(item.first_air_date).toLocaleDateString("en-US")
 			: null;
+	// console.log("releaseDate:", releaseDate);
 
 	const genres =
 		mediaDetails &&
@@ -222,17 +224,22 @@ const MediaDetail = ({ item, mediaType }) => {
 						Watch Trailer
 					</button>
 
-					<p>{mediaDetails?.tagline}</p>
-					<p className={styles.overview}>
-						<strong>Overview:</strong> {mediaDetails?.overview}
+					<p>
+						<strong>Rating: </strong>
+						{mediaDetails?.vote_average
+							? mediaDetails.vote_average.toFixed(1)
+							: "N/A"}
 					</p>
+
+					<p>{mediaDetails?.tagline}</p>
+					<p className={styles.overview}>{mediaDetails?.overview}</p>
 
 					{mediaType === "movie" && (
 						<>
 							<p>
 								<strong>Release Date:</strong>{" "}
 								{new Date(mediaDetails?.release_date).toLocaleDateString(
-									"en-US"
+									"en-Uk"
 								)}
 							</p>
 							<p>
@@ -263,6 +270,14 @@ const MediaDetail = ({ item, mediaType }) => {
 							{mediaDetails?.episode_run_time[0]} minutes per episode
 						</p>
 					)}
+					{mediaType === "tv" && (
+						<p>
+							<strong>Released: </strong>
+							{new Date(mediaDetails?.first_air_date).toLocaleDateString(
+									"en-Uk"
+								)}
+						</p>
+					)}
 				</div>
 			</div>
 
@@ -273,7 +288,7 @@ const MediaDetail = ({ item, mediaType }) => {
 					</p>
 				</div>
 				<div className={styles.mediaImages}>
-				<MouseDrag elementClass={styles.mediaImages} />
+					<MouseDrag elementClass={styles.mediaImages} />
 					{images &&
 						images.backdrops &&
 						images.backdrops.map((image, index) => (

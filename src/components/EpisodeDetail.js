@@ -5,6 +5,7 @@ import {
 	oneEpisodeData,
 	episodeImagesData,
 	fetchEpisodeCredits,
+	episodeTrailersData,
 } from "../slices/appSlices";
 import { useEffect } from "react";
 import NavBar from "./NavBar";
@@ -51,6 +52,33 @@ const EpisodeDetail = () => {
 	// console.log("episodeData", episodeData?.data);
 	// console.log("episodeCredits",episodeCredits?.data);
 
+	useEffect(() => {
+		dispatch(
+			episodeTrailersData(
+				`/tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}/videos?language=en-US`
+			)
+		);
+	}, [dispatch, seriesId, seasonNumber]);
+	const videos = useSelector(
+		(state) => state.app.episodeTrailers?.data?.results
+	);
+	console.log("videos", videos);
+	// console.log(useSelector((state) => state.app.episodeTrailers?.data));
+
+	const openLightbox = () => {
+		const randomIndex = Math.floor(Math.random() * videos.length);
+		const trailer = videos[randomIndex];
+		if (trailer) {
+			const instance = basicLightbox.create(`
+							<div>
+									<iframe width="800" height="450" src="https://www.youtube.com/embed/${trailer.key}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+							</div>
+					`);
+
+			instance.show();
+		}
+	};
+
 	const director = episodeData?.data?.crew?.find(
 		(member) => member.job === "Director"
 	);
@@ -83,20 +111,36 @@ const EpisodeDetail = () => {
 							{episodeData?.data?.episode_number}
 						</p>
 						<p>
-							<strong>Air Date:</strong> {episodeData?.data?.air_date}
-						</p>
-						<p>
 							<strong>Runtime: </strong>
 							{episodeData?.data?.runtime}
 						</p>
 						<p>
 							<strong>Rating: </strong>
-							{episodeData?.data?.vote_average}
+							{episodeData?.data?.vote_average
+								? episodeData.data.vote_average.toFixed(1)
+								: "N/A"}
 						</p>
+						<button className={styles.trailerButton} onClick={openLightbox}>
+							Watch Trailer
+						</button>
 						<p className={styles.overview}>{episodeData?.data?.overview}</p>
 						<div className={styles.director}>
-							{director && <p>Director: {director.name}</p>}
-							{writer && <p>Writer: {writer.name}</p>}
+							{director && (
+								<p>
+									<strong>Director:</strong> {director.name}
+								</p>
+							)}
+							{writer && (
+								<p>
+									<strong>Writer:</strong> {writer.name}
+								</p>
+							)}
+							<p>
+								<strong>Air Date:</strong>{" "}
+								{new Date(episodeData?.data?.air_date).toLocaleDateString(
+									"en-Uk"
+								)}
+							</p>
 						</div>
 					</div>
 				</div>

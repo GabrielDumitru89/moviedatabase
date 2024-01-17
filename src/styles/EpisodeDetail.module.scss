@@ -171,3 +171,16 @@
     // display: none;
   }
 }
+
+.trailerButton{
+  color:white;
+  // background-color: #5E8888;
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+  padding: 0
+  ;
+}

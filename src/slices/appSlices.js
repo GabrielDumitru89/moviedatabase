@@ -348,7 +348,7 @@ export const imagesData = (payload) => async (dispatch) => {
 		const response = await fetcher(payload);
 		// console.log("Response from fetcher:", response);
 		dispatch(getImageData(response));
-		console.log("Dispatching action with response:", response);
+		// console.log("Dispatching action with response:", response);
 	} catch (error) {
 		console.log("Caught an error:", error);
 		// console.error("Error fetching data:", error.message);

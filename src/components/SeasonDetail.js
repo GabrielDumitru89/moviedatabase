@@ -1,7 +1,11 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
-import { oneSeasonData, seasonImagesData } from "../slices/appSlices";
+import {
+	oneSeasonData,
+	seasonImagesData,
+	seasonTrailersData,
+} from "../slices/appSlices";
 import { useEffect } from "react";
 import Row from "./Row";
 import NavBar from "./NavBar";
@@ -38,6 +42,31 @@ const SeasonDetail = () => {
 		? `https://image.tmdb.org/t/p/w1280${seasonData.poster_path}`
 		: "default_image_url";
 
+	useEffect(() => {
+		dispatch(
+			seasonTrailersData(
+				`/tv/${seriesId}/season/${seasonNumber}/videos?language=en-US`
+			)
+		);
+	}, [dispatch, seriesId, seasonNumber]);
+	const videos = useSelector(
+		(state) => state.app.seasonTrailers?.data?.results
+	);
+	// console.log("videos", videos);
+
+	const openLightbox = () => {
+		const trailer = videos?.find((video) => video.type === "Trailer");
+		if (trailer) {
+			const instance = basicLightbox.create(`
+							<div>
+									<iframe width="800" height="450" src="https://www.youtube.com/embed/${trailer.key}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+							</div>
+					`);
+
+			instance.show();
+		}
+	};
+
 	return (
 		<div className={styles.seasonDetailContainer}>
 			<NavBar />
@@ -62,11 +91,17 @@ const SeasonDetail = () => {
 						<div className={styles.releaseAndGenres}>
 							<p>
 								<strong>Air Date: </strong>
-								{seasonData?.air_date}
+								{new Date(seasonData?.air_date).toLocaleDateString("en-Uk")}
 							</p>
 							<p>
-								<strong>Rating: </strong> {seasonData?.vote_average}
+								<strong>Rating: </strong>{" "}
+								{seasonData?.vote_average
+									? seasonData.vote_average.toFixed(1)
+									: "N/A"}
 							</p>
+							<button className={styles.trailerButton} onClick={openLightbox}>
+								Watch Trailer
+							</button>
 						</div>
 						<p className={styles.overview}>{seasonData?.overview}</p>
 					</div>

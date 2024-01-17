@@ -75,6 +75,7 @@
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
+  align-items: flex-start;
 
   p {
   }
@@ -182,4 +183,17 @@
     padding: 5px;
     cursor: pointer;
   }
+}
+
+.trailerButton{
+  color:white;
+  // background-color: #5E8888;
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+  padding: 0
+  ;
 }
