@@ -156,7 +156,8 @@
   display: flex;
   width: 100%;
   max-width: 500px;
-  height: auto;
+  // height: auto;
+  aspect-ratio: 16/9;
   object-fit: cover;
   border-radius: 12px;
 }
