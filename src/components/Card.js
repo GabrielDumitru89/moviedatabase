@@ -4,7 +4,7 @@ import styles from "../styles/Card.module.scss";
 
 const Card = ({ item, type, seriesId }) => {
 	const navigate = useNavigate();
-	// console.log(item);
+	console.log(item);
 	// console.log("Roles:", item?.roles);
 	if (type === "actor") {
 		return (

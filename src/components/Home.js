@@ -7,6 +7,7 @@ import Actors from "./Actors";
 import TopRatedMovies from "./TopRatedMovies";
 import TopRatedSeries from "./TopRatedSeries";
 import Footer from "./Footer";
+import Card from "./Card";
 
 const Home = () => {
 	return (
