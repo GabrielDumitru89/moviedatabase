@@ -27,12 +27,17 @@ const Card = ({ item, type, seriesId }) => {
 				</div>
 				{item?.roles && item.roles.length > 0 ? (
 					<div>
-						<p> {item.roles[0].character}</p>
+						<p>
+							{" "}
+							<strong>{item.roles[0].character}</strong>
+						</p>
 					</div>
 				) : (
 					item?.character && (
 						<div>
-							<p>Character:{item.character}</p>
+							<p>
+								<strong>{item.character}</strong>
+							</p>
 						</div>
 					)
 				)}
@@ -99,7 +104,9 @@ const Card = ({ item, type, seriesId }) => {
 				<div>
 					{item?.roles && item.roles[0] && (
 						<div>
-							<p>Character: {item.roles[0].character}</p>
+							<p>
+								<strong>{item.roles[0].character}</strong>{" "}
+							</p>
 							{item.episode_count && <p>Episodes: {item.episode_count}</p>}
 						</div>
 					)}
@@ -146,7 +153,9 @@ const Card = ({ item, type, seriesId }) => {
 			>
 				{item?.character && (
 					<div>
-						<p>Character: {item.character}</p>
+						<p>
+							<strong>{item.character}</strong>{" "}
+						</p>
 					</div>
 				)}
 				{item.total_episode_count && (
